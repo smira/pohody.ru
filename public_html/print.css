@@ -1,0 +1,161 @@
+body
+{
+  background-color: white;
+  color: black;
+  font-family: Arial Cyr, Arial, sans-serif;
+  font-size: 10pt;
+}
+p
+{
+  text-align: justify;
+}
+table.header
+{
+   background-color: white;
+   border-top: 1px solid black;
+   border-left: 1px solid black;
+   border-right: 1px solid black;
+}
+table.header td.left
+{
+}
+table.header td.right
+{
+}
+table.header td.header
+{
+   font-family: Arial, sans-serif;
+   font-weight: bold;
+   text-align: center;
+   color: black;
+}
+table.block td.content
+{
+   border: 1px solid #494949;
+   text-align: left;
+   padding: 0.3em;
+}
+table.block td.content div
+{
+   margin: 0.5em;
+}
+td.copyright
+{
+  border-top: 1px solid black;
+  text-align: center;
+  font-size: 11px;
+  font-weight: normal;
+}
+span.day
+{
+  font-weight: bolder;
+  text-decoration: underline;
+}
+a img
+{
+  border: 0;
+}
+table.fotos td
+{
+  text-align: center;
+  font-size: smaller;
+}
+span.comment
+{
+  color: #000050;
+}
+table.body
+{
+   font-family: Times New Roman, serif;
+   font-size: 11pt;
+   font-weight: normal;
+}
+h1
+{
+   font-family: Arial, sans-serif;
+   font-size: 14pt;
+   font-weight: bold;
+}
+p.title
+{
+   font-family: Arial, sans-serif;
+   font-size: 18pt;
+   font-weight: bolder;
+   text-align: left;
+}
+div.vynos
+{
+   float: left;
+   padding-right: 1em;
+   text-align: center;
+}
+ul.img
+{
+}
+ul.img2
+{
+}
+td.content ul.img
+{
+     position: relative;
+     left: -20px;
+     margin-bottom: 0px;
+     margin-top: 0px;
+}
+td.content ul.img2
+{
+     position: relative;
+     left: -20px;
+     margin-bottom: 0px;
+     margin-top: 0px;
+}
+td.content ul.img2 ul.img
+{
+     position: relative;
+     left: -10px;
+}
+div.img_container
+{
+     float: right;
+     clear: right;
+     width: 85px;
+     border: 1px dotted black;
+     text-align: center;
+     font-size: 11pt;
+}
+table.photos
+{
+   text-align: center;
+   font-size: 11pt;
+   border: 1px solid black;
+}
+span.sel
+{
+   color: white;
+   background-color: black;
+}
+p.nolink, p.nolink a
+{
+   color: black;
+   text-decoration: none;
+}
+td.pages, td.pages a
+{
+   background-color: #494949;
+   color: white;
+   text-decoration: none;
+}
+td.pages a:hover
+{
+   text-decoration: underline;
+   color: white;
+}
+td.pages span.sel
+{
+   background-color: white;
+   color: black;
+}
+a
+{
+   color: black;
+}

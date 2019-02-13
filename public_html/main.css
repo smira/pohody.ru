@@ -1,0 +1,236 @@
+body
+{
+  background-color: white;
+  color: black;
+  font-family: Arial Cyr, Arial, sans-serif;
+  font-size: 13px;
+  margin: 0 0 0 0;
+}
+p
+{
+  font-family: Times New Roman, serif;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: justify;
+}
+tr.menu td
+{
+  font-size: 13px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+tr.menu
+{
+   background-color:#E2E2E2;
+}
+tr.menu td.sep
+{
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color:#E2E2E2;
+  background: url("/design/vline.gif");
+  background-repeat: no-repeat;
+}
+tr.menu td a:link, tr.menu td a:visited
+{
+   color: black;
+   text-decoration: none;
+}
+tr.menu td a:active, tr.menu td a:hover
+{
+   color: black;
+   text-decoration: underline;
+}
+table.header
+{
+   background-color: #494949;
+}
+table.header td.left
+{
+   background: url("/design/block_left.gif");
+   background-repeat: no-repeat;
+}
+table.header td.right
+{
+   background: url("/design/block_right.gif");
+   background-repeat: no-repeat;
+}
+table.header td.header
+{
+   font-family: Arial, sans-serif;
+   font-weight: bold;
+   font-size: 13px;
+   text-align: center;
+   color: white;
+}
+table.block td.content
+{
+   border: 1px solid #494949;
+   text-align: left;
+   padding: 3px;
+}
+table.block td.content div
+{
+   margin: 2px;
+}
+td.copyright
+{
+  background-color: #E2E2E2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+  font-size: 11px;
+  font-weight: normal;
+}
+span.day
+{
+  color: green;
+  font-weight: bolder;
+}
+a img
+{
+  border: 0;
+}
+table.fotos td
+{
+  text-align: center;
+  font-size: smaller;
+}
+span.comment
+{
+  color: #000050;
+}
+table.body
+{
+   font-family: Times New Roman, serif;
+   font-size: 16px;
+   font-weight: normal;
+}
+h1
+{
+   font-family: Arial, sans-serif;
+   font-size: 26px;
+   font-weight: bold;
+   color: #303030;
+}
+p.title
+{
+   font-family: Arial, sans-serif;
+   font-size: 30px;
+   font-weight: bolder;
+   font-style: italic;
+   text-align:right;
+   margin: 4px;
+}
+div.vynos
+{
+   float: left;
+   padding-right: 15px;
+   text-align: center;
+}
+ul.img
+{
+    list-style-image: url("/design/dot.gif");
+}
+ul.img2
+{
+    list-style-image: url("/design/dot2.gif");
+}
+td.content ul.img
+{
+     position: relative;
+     left: -20px;
+     margin-bottom: 0px;
+     margin-top: 0px;
+}
+td.content ul.img2
+{
+     position: relative;
+     left: -20px;
+     margin-bottom: 0px;
+     margin-top: 0px;
+}
+td.content ul.img2 ul.img
+{
+     position: relative;
+     left: -10px;
+}
+div.img_container
+{
+     float: right;
+     clear: right;
+     width: 85px;
+     border: 1px dotted black;
+     text-align: center;
+     font-size: 13px;
+}
+table.photos
+{
+   text-align: center;
+   font-size: 14px;
+   border: 1px solid black;
+}
+span.sel
+{
+   color: white;
+   background-color: #494949;
+}
+p.nolink, p.nolink a
+{
+   color: black;
+   text-decoration: none;
+}
+td.pages, td.pages a
+{
+   background-color: #494949;
+   color: white;
+   text-decoration: none;
+}
+td.pages a:hover
+{
+   text-decoration: underline;
+   color: white;
+}
+td.pages span.sel
+{
+   background-color: white;
+   color: black;
+}
+table.list
+{
+   padding: 1px;
+}
+table.list th
+{
+   font-style: italic;
+   font-weight: normal;
+   background-color: #E2E2E2;
+   border-left: 1px solid black;
+   border-bottom: 1px solid black;
+}
+table.list td
+{
+   padding-right: 3px;
+   padding-left: 3px;
+   border-left: 1px solid black;
+   border-bottom: 1px solid black;
+}
+table.list td.dot, table.list td.title, table.list th.dot, table.list th.title
+{
+   border-left: 0px solid black;
+}
+/*  For books formatting */
+div.header2
+{
+   font-weight: bolder;
+   font-size: 28px;
+   color: #000090;
+}
+div.header3
+{
+   font-weight: bolder;
+   font-size: 22px;
+   color: #000050;
+}

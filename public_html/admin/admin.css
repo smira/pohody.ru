@@ -1,0 +1,175 @@
+body
+{
+	margin: 0px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+}
+h1
+{
+	text-align: center;
+	font-size: 20px;
+	font-weight: bolder;
+}
+div.form
+{
+	text-align: center;
+}
+table.form td
+{
+	text-align: left;
+}
+table.form input.button
+{
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	width: 75px;
+}
+table.header td, table.header select
+{
+	font-size: 11px;
+	font-family: Arial, sans-serif;
+	background-color: #EEEEEE;
+}
+a:link, a:visited
+{	
+	color: blue;
+	text-decoration: none;
+}
+a:hover, a:active
+{
+	color: blue;
+	text-decoration: underline;
+}
+table.header form
+{
+	margin: 0px;
+}
+table.table
+{
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+table.table2
+{
+	border-collapse: collapse;
+}
+table.table tr
+{
+	border-style: solid;
+	border: 1px solid black;
+}
+table.table2 tr
+{
+	border-style: solid;
+	border: 1px solid black;
+}
+table.table th
+{
+	background-color: #444444;
+	color: white;
+	border: 1px solid white;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+}
+table.table2 th
+{
+	background-color: #444444;
+	color: white;
+	border: 1px solid white;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+}
+table.table th a:link, table.table th a:visited
+{
+	color: white;
+}
+table.table td
+{
+	overflow: hidden;
+	border: 1px solid white;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	vertical-align: top;
+}
+table.table2 td
+{
+	border: 1px solid white;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	vertical-align: top;
+}
+span.order
+{
+	font-family: Wingdings;
+	font-weight: normal;
+	font-size: 14px;
+}
+table.buttons tr
+{
+	border: 0px;
+}
+table.buttons td.buttons
+{
+	background-color: #CCCCCC;
+	font-size: 11px;
+	border: 0px;
+}
+td.buttons input, input
+{
+	background-color: #FFFFFF;
+	color: black;
+	font-size: 11px;
+	font-family: Arial, sans-serif;
+	border: 1px solid black;
+}
+table.form tr.caption td
+{
+	background-color: #444444;
+	color: white;
+	font-size: 11px;
+	font-family: Arial, sans-serif;
+	font-weight: bolder;
+}
+table.form tr.edit input, table.form tr.edit textarea
+{
+	border: 1px solid black;
+	background-color: white;
+	color: black;
+	font-size: 12px;
+	font-family: Arial, sans-serif;
+}
+table.form tr.buttons td
+{
+	background-color: #CCCCCC;
+	color: white;
+	font-size: 11px;
+	font-family: Arial, sans-serif;
+}
+table.form tr.buttons td input
+{
+	background-color: white;
+	color: black;
+	font-size: 11px;
+	font-family: Arial, sans-serif;
+	width: 80px;
+	border: 1px solid black;
+}
+input.button
+{
+	width: 80px;
+}
+td.h1
+{
+	text-align: center;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+}
+span.error
+{
+	color: red;
+}
+span.warning
+{
+	color: green;
+}

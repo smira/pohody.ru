@@ -1,0 +1,183 @@
+<?
+
+////////////////////////////////////////////
+// requires
+chdir($_SERVER["DOCUMENT_ROOT"]."/..");
+require("system/core.php");
+require("system/qforum.php");
+require("system/form.php");
+
+require("forum.php");
+
+////////////////////////////////////////////
+// init
+
+$default_forum = 1;
+
+$priv = array("forum_read"=>true, "forum_write"=>true);
+//$priv['forum_all'] = true;
+
+
+$forums = array(
+	1 => "Свободное общение",
+	2 => "Куда пойти летом?",
+	3 => "Куда пойти весной?",
+	4 => "Снаряжение",
+	5 => "По поводу сайта",
+);
+//if ($HTTP_SESSION_VARS["admin"] === "admin")
+	//$priv = array("forum_all"=>true,"forum_read"=>true, "forum_write"=>true);
+
+$forum = new qforum($con);
+$forum->draw = "forum_draw";
+$forum->draw_prefix = "";
+$forum->draw_suffix = "";
+$forum->forums_draw = "forums_draw";
+$forum->forums_draw_prefix = "forums_draw_prefix";
+$forum->forums_draw_suffix = "forums_draw_suffix";
+$forum->msg_dir = "public_html/forum";
+$forum->static_fields = array("author_name"=>true, "author_mail"=>true, "title"=>true, "body"=>true, "posted"=>true, "notify_answers"=>true, "level"=>true);
+$forum->path = "http://pohody.ru/forum.phtml";
+$forum->user["loader_frames"] = 4;
+$forum->user["mail_prefix"] = "[pohody.ru] ";
+
+$form_forum = array(
+	"title" => array("title"=>"Название форума", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_name" => array("title"=>"Имя создателя", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_mail" => array("title"=>"E-mail создателя", "type"=>"char", "max"=>64, "regexp"=>"/^[\w\.\-]+@[\w\.\-]+\.[\w]{2,4}$/", "class"=>"edit"),
+	"notify_answers" => array("title"=>"Присылать копии сообщений по почте", "type"=>"bit"),
+	"body" => array("title"=>"Описание", "type"=>"text", "notnull"=>false)
+);
+
+$form_message = array(
+	"title" => array("title"=>"Тема сообщения", "type"=>"char", "min"=>5, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_name" => array("title"=>"Имя автора", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_mail" => array("title"=>"E-mail автора", "type"=>"char", "max"=>64, "regexp"=>"/^[\w\.\-]+@[\w\.\-]+\.[\w]{2,4}$/", "class"=>"edit"),
+	"notify_answers" => array("title"=>"Присылать копии ответов по почте", "type"=>"bit"),
+	"body" => array("title"=>"Текст", "type"=>"text", "notnull"=>true)
+);
+
+
+////////////////////////////////////////////
+// job!!
+
+$job = nav_get_list("job", array("tree", "topic", "forum", "edit", "delete", "answer", "rebuild"), "tree");
+$id = nav_get("id", "integer", "0");
+
+
+switch ($job)
+{
+case "tree":
+	if (!$priv["forum_all"] && !$priv["forum_read"])
+		std_error("Невозможно отобразить дерево сообщений: недостаточно прав");
+
+	$forum_id = nav_get("forum", "integer", 0) or $forum_id = false;
+	$topic_id = nav_get("topic", "integer", 0) or $topic_id = false;
+
+	if (!$forum_id && !$priv["forum_all"] && !$priv["forum_moderate"])
+		$forum_id = $default_forum;
+
+	forum_tree($forum, $forum_id, $topic_id);
+	break;
+case "delete":
+	if (!$priv["forum_all"] && !$priv["forum_moderate"] && !$priv["forum_delete"])
+		std_error("Невозможно удалить сообщение: недостаточно прав");
+	if (!$id)
+		std_error("Не указан id удаляемого сообщения");
+
+	$forum_id = $forum->con->property("SELECT forum_id FROM ".$forum->table." WHERE id = ".$id);
+	if ($forum->delete_message($id))
+	{
+		echo "<script>window.parent.document.location.href='?forum=".$forum_id."';</script>";
+		die();
+	}
+	else
+		std_error("Невозможно удалить сообщение");
+case "forum":
+	if (!$priv["forum_all"] && !$priv["forum_admin"])
+		std_error("Невозможно создать/изменить: недостаточно прав");
+	$remote = false;
+	if ($id && !form_is_sent("forum"))
+		$remote = $con->qquery("SELECT * FROM ".$forum->table." WHERE id = ".$id);
+
+	if (form_create(&$form_forum, false, "forum", "", &$remote, &$html, &$values, &$errors, &$form_tag))
+	{
+		if ($id?$forum->modify_message($id, $values):$forum->new_forum($values))
+			die_success(&$values);
+		else
+			std_error("Невозможно создать/изменить форум");
+	}
+
+	forum_edit($id?"Изменение информации о форуме":"Создание форума", $form_forum, &$html, &$values, &$errors, &$form_tag);
+	break;
+
+case "edit":
+	if (!$priv["forum_all"] && !$priv["forum_moderate"] && !$priv["forum_edit"])
+		std_error("Невозможно изменить сообщение: недостаточно прав");
+	if (form_create(&$form_message, false, "forum", "", false, &$html, &$values, &$errors, &$form_tag))
+	{
+		if ($forum->modify_message($id, $values))
+		{
+			$values["forum_id"] = $forum->con->property("SELECT forum_id FROM ".$forum->table." WHERE id = ".$id);
+			$values["id"] = $id;
+			die_success(&$values);
+		}
+		else
+			std_error("Невозможно редактировать сообщение");
+	}
+	break;
+
+case "answer":
+	if (!$priv["forum_all"] && !$priv["forum_write"])
+		std_error("Невозможно написать ответ на сообщение: недостаточно прав");
+	if (form_create(&$form_message, false, "forum", "", false, &$html, &$values, &$errors, &$form_tag))
+	{
+		$values["parent_id"] = $id;
+		list($forum_id, $topic_id) = $con->qquery("SELECT forum_id, topic_id FROM ".$forum->table." WHERE id = ".$id);
+		if (!$forum_id)
+			std_error("Сообщение повреждено");
+		if (!$topic_id)
+			$topic_id = $id;
+		list($msgs, $children, $ids) = $forum->read($forum_id, $topic_id);
+		if ($forum->new_answer($msgs, $ids, $values))
+		{
+			$forum->walk_up($id, "id, forum_id, parent_id, notify_answers, author_name, author_mail, title", forum_mail_answer);
+			die_success(&$values);
+		}
+		else
+			std_error("Невозможно добавить сообщение");
+	}
+	else print_r($errors);
+	break;
+
+case "topic":
+	if (!$priv["forum_all"] && !$priv["forum_write"])
+		std_error("Невозможно создать тему: недостаточно прав");
+	if (form_create(&$form_message, false, "forum", "", false, &$html, &$values, &$errors, &$form_tag))
+	{
+		if ($forum->new_topic($id, $values))
+		{
+			$forum->walk_up($id, "id, forum_id, parent_id, notify_answers, author_name, author_mail, title", forum_mail_answer);
+			die_success(&$values);
+		}
+		else
+			std_error("Невозможно создать тему");
+	}
+	break;
+case "rebuild":
+	if (!$priv["forum_all"])
+		std_error("А прав-то нету:)");
+
+	$msgs = $forum->con->query("SELECT * FROM ".$forum->table);
+	while ($msg = $msgs->fetch_array())
+	{
+		$forum->create_js_message($msg);
+		echo $msg["id"]."<br>\n";
+	}
+	$msgs->free();
+	break;
+}
+
+std_finish();
+
+?>
