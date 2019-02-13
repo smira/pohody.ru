@@ -1,4 +1,4 @@
-<?
+<?php
 
 function cache_start($p_cache_dir, $p_cache_file = false, $p_cache_gzip = false, $p_cache_timeout = false, $p_cache_time = false)
 {
@@ -118,7 +118,7 @@ function cache_control($cache_info, $cache_gzip, $cachefile_appendix = "")
 	if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($cache_info[$_SERVER['SCRIPT_NAME']]))
 	{
 		$cache_info = isset($cache_info["default"])?array_merge($cache_info["default"], $cache_info[$_SERVER['SCRIPT_NAME']]):$cache_info[$_SERVER['SCRIPT_NAME']];
-		$params_line = cache_check_params(&$cache_info["params"]);
+		$params_line = cache_check_params($cache_info["params"]);
 		if ($params_line !== false)
 		{
 			if (!$params_line)

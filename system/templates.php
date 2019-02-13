@@ -1,4 +1,4 @@
-<?
+<?php
 
 // HTML templates for website
 $site_title = 'Жизнь походная';
@@ -73,18 +73,18 @@ function html($title, $menu, $func)
 <body>
 <table border='0' cellspacing='0' cellpadding='0' width='100%'>
 <tr>
-<? if (!$print): ?>
+<?php if (!$print): ?>
 <td width=125><a href="/"><img src='design/top.gif' width=125 height=50 border=0/></a></td>
-<? endif; ?>
+<?php endif; ?>
 <td valign='center'>
 <p class='title'><?=$title?></p>
 </td>
 </tr>
-<? if (!$print): ?>
+<?php if (!$print): ?>
 <tr><td colspan='2'>
 <table border='0' cellspacing='0' cellpadding='0' width='100%'>
 <tr class='menu'>
-<?
+<?php
 global $main_menu;
 $i = 0;
 
@@ -92,24 +92,24 @@ foreach ($main_menu as $key => $params)
 {
 	?><td width='14%' <?=$menu==$key?'style="font-weight:bold"':''?> >
 	<a href='<?=$params['url']?>'><?=$params['title']?></a>
-	</td><?
+	</td><?php
 	$i++;
 }
 ?>
 </tr>
 </table>
 </td></tr>
-<? endif; ?>
+<?php endif; ?>
 </table>
 <table width="100%" cellpadding="5" cellspacing="0" class='body'>
 <tr><td>
-<? $func(); ?>
+<?php $func(); ?>
 </td></tr>
 </table>
 <table border='0' cellspacing='0' cellpadding='0' width='100%'>
 <tr>
 <td class='copyright'>
-<? if ($menu == 'main') : ?>
+<?php if ($menu == 'main') : ?>
 <!-- SpyLOG f:0211 -->
 <script language="javascript"><!--
 Mu="u3070.01.spylog.com";Md=document;Mnv=navigator;Mp=0;
@@ -132,7 +132,7 @@ My+="</a>";Md.write(My);//--></script><noscript>
 <img src="http://u3070.01.spylog.com/cnt?cid=307001&p=0" alt='SpyLOG' border='0' width=88 height=63 >
 </a></noscript>
 <!-- SpyLOG -->
-<? else: ?>
+<?php else: ?>
 <!-- SpyLOG f:0211 --> 
 <script language="javascript"><!-- 
 Mu="u3070.01.spylog.com";Md=document;Mnv=navigator;Mp=1; 
@@ -147,7 +147,7 @@ My+="</a>";Md.write(My);//--></script><noscript>
 <img src="http://u3070.01.spylog.com/cnt?cid=307001&p=1" alt='SpyLOG' border='0' width=88 height=31 > 
 </a></noscript> 
 <!-- SpyLOG -->
-<? endif; ?>
+<?php endif; ?>
 </td>
 
 <td class='copyright'>
@@ -157,7 +157,7 @@ My+="</a>";Md.write(My);//--></script><noscript>
 </table>
 </body>
 </html>
-<?
+<?php
    std_finish();
 }
 
@@ -196,7 +196,7 @@ function block($title, $content, $width = false, $align = false, $nowrap = false
 </td>
 </tr>
 </table>
-<?
+<?php
 }
 
 function shownav()
@@ -204,14 +204,14 @@ function shownav()
   global $nav;
   if (count($nav) < 3)
     return;
-?><tr><td><p class='nav'><?
+?><tr><td><p class='nav'><?php
   for ($i = 0; $i < count($nav); $i++)
   {
-  	?><a href='<?=$nav[$i]['url']?>'><?=$nav[$i]['title']?></a><?
+  	?><a href='<?=$nav[$i]['url']?>'><?=$nav[$i]['title']?></a><?php
   	if ($i != count($nav)-1)
-  		{ ?> &gt;&gt; <? }
+  		{ ?> &gt;&gt; <?php }
   }
-  ?>:</p></td></tr><?
+  ?>:</p></td></tr><?php
 }
 
 function tmpl_people_info($info)
@@ -434,9 +434,9 @@ function tmpl_page_block($min_page, $max_page, $cur_page, $url)
    }
 
    $text .= '</div>';
-   ?><div style='text-align:center'><?
+   ?><div style='text-align:center'><?php
    block($s_pages, $text,false,"center");
-   ?></div><?
+   ?></div><?php
 
 }
 
@@ -457,31 +457,31 @@ function show_gallery($photos, $url, $page)
   $todo = $gallery_page;
   $col = 0;
 
-  ?><p><table class='photos' width='90%' cols='<?=$gallery_w?>' align='center'><?
+  ?><p><table class='photos' width='90%' cols='<?=$gallery_w?>' align='center'><?php
 
   while (($todo-- > 0) && (list($id, $info) = each($photos)))
   {
   	if ($col == 0) // new line
-  		{ ?><tr valign='top'><? }
+  		{ ?><tr valign='top'><?php }
   	$col++;
   	?><td><a href="<?=$url?>&page=<?=$page?>&id=<?=$id?>">
   	  <img src="/images/<?=thumb_name($id)?>" width="<?=$info[1]?>"
   	         height="<?=$info[2]?>"><br><?=$info[0]?></a>
   	   <?=($info[3] ? ($info[0] ? " (" : "").
   	        "<a href='/travels.phtml?id=$info[4]'>$info[3]</a>".
-  	        ($info[0] ? ")" : '') : '')?></td><?
+  	        ($info[0] ? ")" : '') : '')?></td><?php
   	if ($col == $gallery_w)
-  		{ ?></tr><?  $col = 0; }
+  		{ ?></tr><?php  $col = 0; }
   }
 
   if ($col != 0)
   {
   	while ($col++ != $gallery_w)
-  	{ ?><td>&nbsp;</td><? }
-  	?></tr><?
+  	{ ?><td>&nbsp;</td><?php }
+  	?></tr><?php
   }
 
-  ?></table></p><?
+  ?></table></p><?php
 
   tmpl_page_block(1, $page_count, $page, $url);
 }

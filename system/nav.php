@@ -1,4 +1,4 @@
-<?
+<?php
 
 function nav_link($params)
 {

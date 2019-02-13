@@ -1,6 +1,6 @@
-<?
+<?php
 
-header("Content-type: text/html; charset=windows-1251");
+header("Content-type: text/html; charset=utf-8");
 
 require('system/std.php');
 require('system/nav.php');
@@ -11,12 +11,12 @@ require('system/templates.php');
 
 $cache = array(
 	"default"		=> array("dir"=>"cache/", "time_limit"=>100, "location"=>"manydirs", "type"=>"timeout","period"=>"36000"),
-	"/index.phtml"		=> array("params"=>array("action"=>false), "period"=>"600", "location"=>"onefile"),
-	"/photo.phtml"		=> array("params"=>array("fav"=>true, "travel"=>true, "page"=>true, "id"=>true)),
-	"/travels.phtml"	=> array("params"=>array("id"=>true, "doc"=>true)),
-	"/people.phtml"		=> array("params"=>array("id"=>true)),
-	"/rivers.phtml"		=> array("params"=>array("id"=>true)),
-	"/articles.phtml"	=> array("params"=>array("id"=>true, "page"=>true)),
+	"/index.php"		=> array("params"=>array("action"=>false), "period"=>"600", "location"=>"onefile"),
+	"/photo.php"		=> array("params"=>array("fav"=>true, "travel"=>true, "page"=>true, "id"=>true)),
+	"/travels.php"	=> array("params"=>array("id"=>true, "doc"=>true)),
+	"/people.php"		=> array("params"=>array("id"=>true)),
+	"/rivers.php"		=> array("params"=>array("id"=>true)),
+	"/articles.php"	=> array("params"=>array("id"=>true, "page"=>true)),
 );
 
 if ($_SERVER["REMOTE_ADDR"] != "127.0.0.1")
