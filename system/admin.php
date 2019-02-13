@@ -22,7 +22,7 @@ function admin_html()
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
 <head>
-<title><?=$site_title?> :: Администрирование :: <?=$admin['sections'][$section]['title']?></title>
+<title><?=$site_title?> :: РђРґРјРёРЅРёСЃС‚СЂРёСЂРѕРІР°РЅРёРµ :: <?=$admin['sections'][$section]['title']?></title>
 <link rel="stylesheet" type="text/css" href="/admin/admin.css" />
 <script src="/admin/admin.js" type="text/javascript" language="javascript"></script></head>
 <body>
@@ -64,7 +64,7 @@ function admin_html()
 }
 
 /////////////////////////////////////////////////
-/// Авторизация
+/// РђРІС‚РѕСЂРёР·Р°С†РёСЏ
 /////////////////////////////////////////////////
 
 function admin_authorized()
@@ -76,13 +76,13 @@ function admin_authorized()
 function admin_auth_form()
 {
 ?>
-<h1>Авторизация</h1>
+<h1>РђРІС‚РѕСЂРёР·Р°С†РёСЏ</h1>
 <form method='post' action='?action=auth'>
 <center>
 <table class='form'>
-<tr><td>Имя:</td><td><input type='text' name='user'></td></tr>
-<tr><td>Пароль:</td><td><input type='password' name='password'></td></tr>
-<tr><td>&nbsp;</td><td><input type='submit' value='&lt; Вход &gt;' class='button'></td></tr>
+<tr><td>РРјСЏ:</td><td><input type='text' name='user'></td></tr>
+<tr><td>РџР°СЂРѕР»СЊ:</td><td><input type='password' name='password'></td></tr>
+<tr><td>&nbsp;</td><td><input type='submit' value='&lt; Р’С…РѕРґ &gt;' class='button'></td></tr>
 </table>
 </center>
 </form>
@@ -121,7 +121,7 @@ function admin_section_priv($section)
 }
 
 /////////////////////////////////////////////////
-/// Основное содержимое
+/// РћСЃРЅРѕРІРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ
 /////////////////////////////////////////////////
 
 function admin_main_content($section)
@@ -147,13 +147,13 @@ function admin_main_content($section)
 	$asc = nav_get('asc', 'integer', $default_asc);
 ?>
 <table cellspacing='0' cellpadding='0' border='0' width='100%'>
-<!-- заголовок -->
+<!-- Р·Р°РіРѕР»РѕРІРѕРє -->
 <tr><td>
   <table cellspacing='0' cellpadding='0' border='0' width='100%' class='header'>
     <tr>
       <td nowrap align='left'>
         <form name='header' method='get' action='/admin/' id='section_form'>
-          <b>Раздел:</b>
+          <b>Р Р°Р·РґРµР»:</b>
          <select name='section' onchange='document.forms["section_form"].submit()'>
             <?
                foreach($admin['sections'] as $name => $info)
@@ -167,15 +167,15 @@ function admin_main_content($section)
          </form>
       </td>
       <td align='center' width='100%'>
-         <b>Администрирование</b>: <?=$site_title?>
+         <b>РђРґРјРёРЅРёСЃС‚СЂРёСЂРѕРІР°РЅРёРµ</b>: <?=$site_title?>
       </td>
       <td nowrap align='right'>
-      	<a href='/admin/?action=logout'>Выход</a>
+      	<a href='/admin/?action=logout'>Р’С‹С…РѕРґ</a>
       </td>
     </tr>
   </table>
 </td></tr>
-<!-- конец заголовка -->
+<!-- РєРѕРЅРµС† Р·Р°РіРѕР»РѕРІРєР° -->
 <?
 	if ($admin['sections'][$section]['dialog'])
 	{
@@ -189,27 +189,27 @@ function admin_main_content($section)
    <form name='table' style='margin: 0px'>
    <table cellspacing='0' width='100%' class='table'>
      <? admin_prepare_field_map($admin['views'][$view]); ?> 
-<!-- хедер текущего view (заголовок таблицы) -->
+<!-- С…РµРґРµСЂ С‚РµРєСѓС‰РµРіРѕ view (Р·Р°РіРѕР»РѕРІРѕРє С‚Р°Р±Р»РёС†С‹) -->
      <? admin_view_header($admin['views'][$view]); ?>
-<!-- конец хедера -->
-<!-- содержимое таблицы -->
+<!-- РєРѕРЅРµС† С…РµРґРµСЂР° -->
+<!-- СЃРѕРґРµСЂР¶РёРјРѕРµ С‚Р°Р±Р»РёС†С‹ -->
      <? admin_show_sql($admin['views'][$view], admin_build_sql($admin['views'][$view])) ?>
-<!-- конец содержимого таблицы -->
-<!-- футер текущего view (статистика, прокрутка?) -->
+<!-- РєРѕРЅРµС† СЃРѕРґРµСЂР¶РёРјРѕРіРѕ С‚Р°Р±Р»РёС†С‹ -->
+<!-- С„СѓС‚РµСЂ С‚РµРєСѓС‰РµРіРѕ view (СЃС‚Р°С‚РёСЃС‚РёРєР°, РїСЂРѕРєСЂСѓС‚РєР°?) -->
      <? $static ? 1 : admin_view_footer($admin['views'][$view]); ?>
-<!-- конец футера -->
-<!-- строка с кнопками действий -->
+<!-- РєРѕРЅРµС† С„СѓС‚РµСЂР° -->
+<!-- СЃС‚СЂРѕРєР° СЃ РєРЅРѕРїРєР°РјРё РґРµР№СЃС‚РІРёР№ -->
      <? $static ? 1 : admin_buttons($admin['views'][$view]); ?>
-<!-- конец строки с кнопками действий -->
+<!-- РєРѕРЅРµС† СЃС‚СЂРѕРєРё СЃ РєРЅРѕРїРєР°РјРё РґРµР№СЃС‚РІРёР№ -->
    </table>
    </form>
-<!-- фильтр -->
+<!-- С„РёР»СЊС‚СЂ -->
 <tr><td>
    <? if (count($admin['views'][$view]['filters']) > 0) admin_filter_show($section); ?>
 </td></tr>
-<!-- конец фильтра -->
+<!-- РєРѕРЅРµС† С„РёР»СЊС‚СЂР° -->
 </td></tr>
-<!-- конец view -->
+<!-- РєРѕРЅРµС† view -->
 <?
 	}
 ?>
@@ -231,7 +231,7 @@ function admin_view_header($view)
 	global $admin, $field_map;
 
 ?><tr><?
-        ?><th width='20'><a href='<?=nav_link(array('sort' => false, 'asc' => false ))?>'>б/с</a></th><?
+        ?><th width='20'><a href='<?=nav_link(array('sort' => false, 'asc' => false ))?>'>Р±/СЃ</a></th><?
 	foreach ($field_map as $name => $field)
 		admin_view_header_field($name, $view, $admin['fields'][$field]);
 ?></tr><?
@@ -296,10 +296,10 @@ function admin_print_field($value, $field, $rowstyle='')
 function admin_print_alias_buttons(&$row)
 {
 	?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?
-	echo admin_button('Алиас <->', nav_link(array('action' => 'alias', 'kind' => 'swap', 'from' => false, 'limit' => false,
+	echo admin_button('РђР»РёР°СЃ <->', nav_link(array('action' => 'alias', 'kind' => 'swap', 'from' => false, 'limit' => false,
 					   'id' => $row['id'])), true);
 	?>&nbsp;&nbsp;&nbsp;<?
-	echo admin_button('Алиас +-The', nav_link(array('action' => 'alias', 'kind' => 'the', 'from' => false, 'limit' => false,
+	echo admin_button('РђР»РёР°СЃ +-The', nav_link(array('action' => 'alias', 'kind' => 'the', 'from' => false, 'limit' => false,
 					   'id' => $row['id'])), true);
 }
 
@@ -308,8 +308,8 @@ function admin_view_footer($view)
 	global $admin, $from, $num_rows, $overall_rows, $field_map, $section, $HTTP_SESSION_VARS;
 	$filter = $HTTP_SESSION_VARS['filter'][$section];
 	?><tr><th>&nbsp;</th><?
-	?><th align='left' colspan='<?=count($field_map)?>'>Показаны записи с <?=$from+1?> по <?=$from+$num_rows?> (из <?=$overall_rows?>)
-	  <? if (count($filter) > 0): ?> (+фильтр+) <? endif; ?>
+	?><th align='left' colspan='<?=count($field_map)?>'>РџРѕРєР°Р·Р°РЅС‹ Р·Р°РїРёСЃРё СЃ <?=$from+1?> РїРѕ <?=$from+$num_rows?> (РёР· <?=$overall_rows?>)
+	  <? if (count($filter) > 0): ?> (+С„РёР»СЊС‚СЂ+) <? endif; ?>
 	</th><?
 	?></tr><?
 }
@@ -325,15 +325,15 @@ function admin_buttons($view)
 	if ($from > 0)
 		echo admin_button("<", nav_link(array('from' => max(0,$from-$limit))));
         ?></td><td class='buttons'><?
-         echo admin_button("Добавить", nav_link(array('action'=>'add','from'=>false,'limit'=>false)), true);
+         echo admin_button("Р”РѕР±Р°РІРёС‚СЊ", nav_link(array('action'=>'add','from'=>false,'limit'=>false)), true);
   	 echo "&nbsp;";
-         echo admin_button("Изменить", nav_link(array('action'=>'edit','from'=>false,'limit'=>false)), true, 'prepareEdit');
+         echo admin_button("РР·РјРµРЅРёС‚СЊ", nav_link(array('action'=>'edit','from'=>false,'limit'=>false)), true, 'prepareEdit');
 	 echo "&nbsp;";
-         echo admin_button("Удалить",  nav_link(array('action'=>'delete','from'=>false,'limit'=>false)), true, 'prepareDelete');
+         echo admin_button("РЈРґР°Р»РёС‚СЊ",  nav_link(array('action'=>'delete','from'=>false,'limit'=>false)), true, 'prepareDelete');
 	 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-         //echo admin_button("Фильтр",  nav_link(array('action'=>'filter','from'=>false,'limit'=>false)), true);
+         //echo admin_button("Р¤РёР»СЊС‚СЂ",  nav_link(array('action'=>'filter','from'=>false,'limit'=>false)), true);
 	 //echo "&nbsp;";
-         //echo admin_button("Без фильтра",  nav_link(array('action'=>'delfilter','from'=>false,'limit'=>false)), true);
+         //echo admin_button("Р‘РµР· С„РёР»СЊС‚СЂР°",  nav_link(array('action'=>'delfilter','from'=>false,'limit'=>false)), true);
          if (count($view['goto']) > 0)
          {
   	    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -341,7 +341,7 @@ function admin_buttons($view)
             {
                global $admin;
                $info =  $admin['goto'][$goto];
-               echo admin_button("К ".$info['label'],  nav_link(array('action'=>'goto','from'=>false,'limit'=>false,'link'=>$field)), true, 'prepareEdit');
+               echo admin_button("Рљ ".$info['label'],  nav_link(array('action'=>'goto','from'=>false,'limit'=>false,'link'=>$field)), true, 'prepareEdit');
 	       echo "&nbsp;";
             }		
          }
@@ -368,7 +368,7 @@ function admin_buttons($view)
     	<?
 		if(is_array($ch_list))
 		{
-			echo "Количество строк: <select onChange='onChangeRowsCount(this);'>";
+			echo "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє: <select onChange='onChangeRowsCount(this);'>";
 			foreach($ch_list as $rows_count_item)
 				echo "<option value = '".nav_link(array('limit' => $rows_count_item))."'".($rows_count_item==$limit?" selected":"").">".$rows_count_item."</option>";
 			echo "</select>";			
@@ -507,11 +507,11 @@ function admin_process_build_sql($edit, $view, $values)
 		}
 		if ($field_desc['type'] == 'many2many')
 		{
-			// удалить сначала значения
+			// СѓРґР°Р»РёС‚СЊ СЃРЅР°С‡Р°Р»Р° Р·РЅР°С‡РµРЅРёСЏ
 			$result[] =
 			     "DELETE FROM {$field_desc['linktable']} WHERE ".
 			     "{$field_desc['linkprimary']} = '%id%'";
-			// теперь добавим
+			// С‚РµРїРµСЂСЊ РґРѕР±Р°РІРёРј
 			foreach ($values[$field.'[]'] as $id => $value)
 			{
 				$result[] =
@@ -553,7 +553,7 @@ function admin_build_delete($view)
 			     join(', ', $primary).")";
         	}
         }
-        // проверить все поля, вдруг мы на них ссылаемся?
+        // РїСЂРѕРІРµСЂРёС‚СЊ РІСЃРµ РїРѕР»СЏ, РІРґСЂСѓРі РјС‹ РЅР° РЅРёС… СЃСЃС‹Р»Р°РµРјСЃСЏ?
         foreach ($admin['fields'] as $name => $field_desc)
         {
         	if ($field_desc['type'] == 'many2many' && $field_desc['lookuptable'] == $view['table'])
@@ -610,7 +610,7 @@ function admin_lookup_keys($field_desc, $view, $primary)
 }
 
 ///////////////////////////////////////////////////
-// Функции добавления/редактирования
+// Р¤СѓРЅРєС†РёРё РґРѕР±Р°РІР»РµРЅРёСЏ/СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
 ///////////////////////////////////////////////////
 
 function admin_modify($action, $section)
@@ -630,7 +630,7 @@ function admin_modify($action, $section)
 	$form = admin_prepare_form($edit, $admin['views'][$view]);
         if (form_create(&$form, false, "admin", "", &$remote, &$html, &$values, &$errors, &$form_tag))
         {
-        	// форма уже запощена
+        	// С„РѕСЂРјР° СѓР¶Рµ Р·Р°РїРѕС‰РµРЅР°
         	admin_process_post($edit, $admin['views'][$view], $values);
         }
         else
@@ -662,7 +662,7 @@ function admin_prepare_form($edit, $view)
 				      $form_field = array('type' => 'int'); break;
 			case 'many2many':
                                       $form_field = array('type' => 'select', 'multiple' => true, 'elements' => $con->query_list(admin_lookup_values($field_desc))); break;
-			default: std_error("Неизвестный тип поля ".$field_desc['type']. "($field => $field_name)");
+			default: std_error("РќРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РїРѕР»СЏ ".$field_desc['type']. "($field => $field_name)");
 		}
 		$form_field['title'] = $field_desc['title'];
 		if ($field_desc['type'] == 'date' && $field_desc['default_now'])
@@ -687,7 +687,7 @@ function admin_prepare_form($edit, $view)
 				array(
 					'type' => 'char',
 					'size' => '60',
-					'title' => $field_desc['title'].' [Значение]',
+					'title' => $field_desc['title'].' [Р—РЅР°С‡РµРЅРёРµ]',
 				     );
 					
 		}
@@ -703,7 +703,7 @@ function admin_show_form($edit, $section, $form, $view, $html, $values, $errors,
 		echo $html["__primary__"];
 	if ($action == 'filter' || $filter)
 	{
-		?><h1>Фильтр</h1><?
+		?><h1>Р¤РёР»СЊС‚СЂ</h1><?
 	}
 	else
 	{
@@ -722,14 +722,14 @@ function admin_show_form($edit, $section, $form, $view, $html, $values, $errors,
 	if ($filter)
 	{
 	  ?><tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'>
-	  <input type='submit' value='Фильтр' style='width: 120px'>
-          <input type='button' value='Убрать фильтр' style='width: 120px' onClick='document.location = "?section=<?=$section?>&delfilter=1"'> 
+	  <input type='submit' value='Р¤РёР»СЊС‚СЂ' style='width: 120px'>
+          <input type='button' value='РЈР±СЂР°С‚СЊ С„РёР»СЊС‚СЂ' style='width: 120px' onClick='document.location = "?section=<?=$section?>&delfilter=1"'> 
 	  </td></tr><?
 	}
 	else
 	{
-	  ?><tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'><input type='submit' value='<?=$edit?'Сохранить':'Добавить'?>'>
-          <input type='button' value='Отмена' onclick='window.close()'> 
+	  ?><tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'><input type='submit' value='<?=$edit?'РЎРѕС…СЂР°РЅРёС‚СЊ':'Р”РѕР±Р°РІРёС‚СЊ'?>'>
+          <input type='button' value='РћС‚РјРµРЅР°' onclick='window.close()'> 
 	  </td></tr><?
 	}
 	?></table></form><?
@@ -745,12 +745,12 @@ function admin_process_post($edit, $view, $values)
 	else
 		$primary = @mysql_insert_id();
 	if ($result === false)
-		std_error("Ошибка при исполнении запроса $queries[0] ".$con->error());
+		std_error("РћС€РёР±РєР° РїСЂРё РёСЃРїРѕР»РЅРµРЅРёРё Р·Р°РїСЂРѕСЃР° $queries[0] ".$con->error());
 	for ($i = 1; $i < count($queries); $i++)
 	{
 		$queries[$i] = str_replace('%id%', $primary, $queries[$i]);
 		if ($con->update($queries[$i]) === false)
-			std_error("Ошибка при исполнении запроса $queries[$i] ".$con->error());
+			std_error("РћС€РёР±РєР° РїСЂРё РёСЃРїРѕР»РЅРµРЅРёРё Р·Р°РїСЂРѕСЃР° $queries[$i] ".$con->error());
 	}
 	?>
 		<script language='JavaScript'>
@@ -799,7 +799,7 @@ function admin_delete($section)
 	{
 	        $result =  $con->delete($query);
 		if (!$result)
-			std_error("Ошибка при исполнении запроса $query");
+			std_error("РћС€РёР±РєР° РїСЂРё РёСЃРїРѕР»РЅРµРЅРёРё Р·Р°РїСЂРѕСЃР° $query");
 	}
 	?>
 		<script language='JavaScript'>
@@ -811,7 +811,7 @@ function admin_delete($section)
 }
 
 ///////////////////////////////////////////////////
-// Функции перехода
+// Р¤СѓРЅРєС†РёРё РїРµСЂРµС…РѕРґР°
 ///////////////////////////////////////////////////
 
 function admin_goto($section)
@@ -842,7 +842,7 @@ function admin_goto($section)
 
 
 ///////////////////////////////////////////////////
-// Функции фильтрации вывода
+// Р¤СѓРЅРєС†РёРё С„РёР»СЊС‚СЂР°С†РёРё РІС‹РІРѕРґР°
 ///////////////////////////////////////////////////
 
 function admin_filter_process($section)
@@ -860,7 +860,7 @@ function admin_filter_process($section)
 	$form = admin_prepare_filter_form($admin['views'][$view]);
         if (form_create(&$form, false, "filter", "", &$remote, &$html, &$values, &$errors, &$form_tag))
         {
-        	// форма уже запощена
+        	// С„РѕСЂРјР° СѓР¶Рµ Р·Р°РїРѕС‰РµРЅР°
         	foreach ($values as $name => $value)
         		if ($value === '' || $value === false || $value === null)
         			unset($values[$name]);
@@ -913,7 +913,7 @@ function admin_prepare_filter_form($view)
 				      $form_field = array('type' => 'int'); break;
 			case 'many2many':
                                       $form_field = array('type' => 'select', 'elements' => $con->query_list(admin_lookup_values($field_desc))); break;
-			default: std_error("Неизвестный тип поля ".$field_desc['type']);
+			default: std_error("РќРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РїРѕР»СЏ ".$field_desc['type']);
 		}
 		$form_field['title'] = $field_desc['title'];
 		if ($field_desc['size'])
@@ -930,7 +930,7 @@ function admin_prepare_filter_form($view)
 				array(
 					'type' => 'char',
 					'size' => '60',
-					'title' => $field_desc['title'].' [Значение]',
+					'title' => $field_desc['title'].' [Р—РЅР°С‡РµРЅРёРµ]',
 				     );
 					
 		}
@@ -939,7 +939,7 @@ function admin_prepare_filter_form($view)
 }
 
 ///////////////////////////////////////////////////
-// Алиасы
+// РђР»РёР°СЃС‹
 ///////////////////////////////////////////////////
 
 function admin_make_alias($section)
@@ -969,13 +969,13 @@ function admin_make_alias($section)
 
 	if ($con->property("SELECT id FROM t_artist_list WHERE artist_name = '".$con->safe_str($alias)."'"))
 	{
-		?>Такой исполнитель уже есть!<?
+		?>РўР°РєРѕР№ РёСЃРїРѕР»РЅРёС‚РµР»СЊ СѓР¶Рµ РµСЃС‚СЊ!<?
 		die;
 	}
 
 	if ($con->property("SELECT id FROM t_alias_list WHERE artist_name = '".$con->safe_str($alias)."'"))
 	{
-		?>Такой алиас уже есть!<?
+		?>РўР°РєРѕР№ Р°Р»РёР°СЃ СѓР¶Рµ РµСЃС‚СЊ!<?
 		die;
 	}
 	
@@ -994,7 +994,7 @@ function admin_make_alias($section)
 
 
 ///////////////////////////////////////////////////
-// Функции форматирования
+// Р¤СѓРЅРєС†РёРё С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ
 ///////////////////////////////////////////////////
 
 function format_cut($line, $field)
@@ -1135,10 +1135,10 @@ function admin_special_recording($section)
 	?>
 	<form method='post'>
 	<table class='form' cellspacing='0' cellpadding='2' width='100%' border='0'>
-	<tr class='caption'><td colspan='3' align='left'>Компания</td></tr>
+	<tr class='caption'><td colspan='3' align='left'>РљРѕРјРїР°РЅРёСЏ</td></tr>
 	<tr class='edit'><td width='50'>&nbsp;</td><td>
 		<select name='recording'>
-			<option value='-1' selected>РОМС</option>
+			<option value='-1' selected>Р РћРњРЎ</option>
 			<?
 			foreach ($list as $id => $name)
 			{
@@ -1148,7 +1148,7 @@ function admin_special_recording($section)
 		</select>
 		</td><td class='error'></td></tr>
         <tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'>
-	  <input type='submit' value='Пометить' style='width: 120px'>
+	  <input type='submit' value='РџРѕРјРµС‚РёС‚СЊ' style='width: 120px'>
 	  </td></tr>
 	</table>
 	</form>

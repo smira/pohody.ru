@@ -100,7 +100,7 @@ function prepareEdit(form, url, width, height)
 {
     if (countChecked(form) != 1)
     {
-    	alert("Должно быть выбрана ровно одно строка!");
+    	alert("Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІС‹Р±СЂР°РЅР° СЂРѕРІРЅРѕ РѕРґРЅРѕ СЃС‚СЂРѕРєР°!");
     	return;
     }
     var primary;
@@ -114,10 +114,10 @@ function prepareDelete(form, url, width, height)
 {
     if (countChecked(form) == 0)
     {
-    	alert("Должно быть выбрана хотя бы одно строка!");
+    	alert("Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІС‹Р±СЂР°РЅР° С…РѕС‚СЏ Р±С‹ РѕРґРЅРѕ СЃС‚СЂРѕРєР°!");
     	return;
     }
-    if (!confirm("Вы действительно хотите удалить "+countChecked(form)+" строку(и)?"))
+    if (!confirm("Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ "+countChecked(form)+" СЃС‚СЂРѕРєСѓ(Рё)?"))
     	return;
 
     var primary = "";
@@ -131,7 +131,7 @@ function prepareMulti(form, url, width, height)
 {
     if (countChecked(form) == 0)
     {
-    	alert("Должно быть выбрана хотя бы одно строка!");
+    	alert("Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІС‹Р±СЂР°РЅР° С…РѕС‚СЏ Р±С‹ РѕРґРЅРѕ СЃС‚СЂРѕРєР°!");
     	return;
     }
 
@@ -144,7 +144,7 @@ function prepareMulti(form, url, width, height)
 
 function confirmLink(url)
 {
-	if (confirm("Подтвердите действие"))
+	if (confirm("РџРѕРґС‚РІРµСЂРґРёС‚Рµ РґРµР№СЃС‚РІРёРµ"))
 		document.location = url;
 }
 

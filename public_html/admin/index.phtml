@@ -10,9 +10,9 @@ $row_inactive = '#EFEFEF';
 $row_active   = '#D0D0D0';
 $popup_width  =  600;
 $popup_height =  500;
-$field_nochange = '<íå èçìåíÿòü>';
+$field_nochange = '<Ð½Ðµ Ð¸Ð·Ð¼ÐµÐ½ÑÑ‚ÑŒ>';
 $site_title = 'Pohody.Ru';
-$yes_no = array('Íåò', 'Äà');
+$yes_no = array('ÐÐµÑ‚', 'Ð”Ð°');
 
 $section_includes = array(
 			 );
@@ -34,47 +34,47 @@ $con = new mysql_con($mysql_options['database'], $mysql_options['user'],
 $admin = array(
   'sections' => array(
                 'people'   => array(
-                             'title'  => 'Ïîõîäíèêè',
+                             'title'  => 'ÐŸÐ¾Ñ…Ð¾Ð´Ð½Ð¸ÐºÐ¸',
                              'view'   => 'people_view',
 			     'priv'    => 'all',
                            ),
                 'boats'    => array(
-                             'title'  => 'Ñóäà',
+                             'title'  => 'Ð¡ÑƒÐ´Ð°',
                              'view'   => 'boats_view',
 			     'priv'    => 'all',
                            ),
                 'rivers'   => array(
-                             'title'  => 'Ðåêè',
+                             'title'  => 'Ð ÐµÐºÐ¸',
                              'view'   => 'rivers_view',
 			     'priv'    => 'all',
                            ),
                 'pohody'   => array(
-                             'title'  => 'Ïîõîäû',
+                             'title'  => 'ÐŸÐ¾Ñ…Ð¾Ð´Ñ‹',
                              'view'   => 'pohody_view',
 			     'priv'    => 'all',
                            ),
 		'documents' => array(
-                             'title'  => 'Äîêóìåíòû',
+                             'title'  => 'Ð”Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ñ‹',
                              'view'   => 'documents_view',
 			     'priv'    => 'all',
                            ),
 		'comands'  => array(
-                             'title'  => 'Ýêèïàæè',
+                             'title'  => 'Ð­ÐºÐ¸Ð¿Ð°Ð¶Ð¸',
                              'view'   => 'comands_view',
 			     'priv'    => 'all',
                            ),
 		'photos'   => array(
-                             'title'  => 'Ôîòêè',
+                             'title'  => 'Ð¤Ð¾Ñ‚ÐºÐ¸',
                              'view'   => 'photos_view',
 			     'priv'    => 'all',
                            ),
 		'news'     => array(
-                             'title'  => 'Íîâîñòè',
+                             'title'  => 'ÐÐ¾Ð²Ð¾ÑÑ‚Ð¸',
                              'view'   => 'news_view',
 			     'priv'    => 'all',
                            ),
                 'users'    => array(
-                             'title'  => 'Ïîëüçîâàòåëè àäìèíñòâà',
+                             'title'  => 'ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ð¸ Ð°Ð´Ð¼Ð¸Ð½ÑÑ‚Ð²Ð°',
                              'view'   => 'user_view',
 			     'priv'    => 'all',
                            ),
@@ -274,14 +274,14 @@ $admin = array(
    		           		'align' => 'center',
    		        	   ),
    		'username'	=> array(
-   		 			'title' => 'Èìÿ ïîëüçîâàòåëÿ',
+   		 			'title' => 'Ð˜Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ',
    		 			'type'  => 'text',
    		 			'size'  => '25',
    		 			'max'   => '25',
    		 			'required' => true,
    		 		   ),	
    		'password'      => array(
-   		 			'title' => 'Ïàðîëü',
+   		 			'title' => 'ÐŸÐ°Ñ€Ð¾Ð»ÑŒ',
    		 			'type'  => 'text',
    		 			'func'  => 'md5',
    		 			'oneway'=> true,
@@ -290,27 +290,27 @@ $admin = array(
    		 			'required' => true,
    		 		   ),
    		'userpriv'      => array(
-   		 			'title' => 'Ïðàâà',
+   		 			'title' => 'ÐŸÑ€Ð°Ð²Ð°',
    		 			'type'  => 'text',
    		 			'size'  => '70',
 					'max'   => '512',
    		 		   ),
    		'fio_user'	=> array(
-   		 			'title' => 'Ôàìèëèÿ, èìÿ, îò÷åñòâî',
+   		 			'title' => 'Ð¤Ð°Ð¼Ð¸Ð»Ð¸Ñ, Ð¸Ð¼Ñ, Ð¾Ñ‚Ñ‡ÐµÑÑ‚Ð²Ð¾',
    		 			'type'  => 'text',
    		 			'hide'  => true,
    		 			'size'  => '60',
    		 			'max'   => '255',
    		 		   ),
    		'name'		=> array(
-   		 			'title' => 'Èìÿ',
+   		 			'title' => 'Ð˜Ð¼Ñ',
    		 			'type'  => 'text',
    		 			'size'  => '25',
    		 			'max'   => '50',
    		 			'required' => true,
    		 		   ),	
    		'fullname'	=> array(
-   		 			'title' => 'Ïîëíîå èìÿ',
+   		 			'title' => 'ÐŸÐ¾Ð»Ð½Ð¾Ðµ Ð¸Ð¼Ñ',
    		 			'type'  => 'text',
    		 			'size'  => '40',
    		 			'max'   => '70',
@@ -333,7 +333,7 @@ $admin = array(
 					'hide'  => true,
    		 		   ),	
    		'description'	=> array(
-   		 			'title' => 'Îïèñàíèå',
+   		 			'title' => 'ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ',
    		 			'type'  => 'memo',
    		 			'size'  => 100,
    		 			'lines' => 15,
@@ -341,37 +341,37 @@ $admin = array(
    		 			'required' => false,
    		 		   ),	
    		'type'		=> array(
-   		 			'title' => 'Ìîäåëü',
+   		 			'title' => 'ÐœÐ¾Ð´ÐµÐ»ÑŒ',
    		 			'type'  => 'text',
    		 			'size'  => '25',
    		 			'max'   => '50',
    		 			'required' => true,
    		 		   ),	
    		'number_people'	=> array(
-   		 			'title' => 'Êîë-âî ìåñò',
+   		 			'title' => 'ÐšÐ¾Ð»-Ð²Ð¾ Ð¼ÐµÑÑ‚',
 					'type'  => 'int',
    		 			'required' => true,
 					'hide'  => true,
    		 		   ),	
    		'season'	=> array(
-   		 			'title' => 'Ñåçîí',
+   		 			'title' => 'Ð¡ÐµÐ·Ð¾Ð½',
    		 			'type'  => 'text',
    		 			'size'  => '15',
    		 			'max'   => '10',
    		 			'required' => true,
    		 		   ),	
    		'year'		=> array(
-   		 			'title' => 'Ãîä',
+   		 			'title' => 'Ð“Ð¾Ð´',
 					'type'  => 'int',
    		 			'required' => true,
    		 		   ),	
    		'number'	=> array(
-   		 			'title' => 'Íîìåð',
+   		 			'title' => 'ÐÐ¾Ð¼ÐµÑ€',
 					'type'  => 'int',
    		 			'required' => true,
    		 		   ),	
    		'river'		=> array(
-   		 			'title' => 'Ðåêà',
+   		 			'title' => 'Ð ÐµÐºÐ°',
 					'type'  => 'one2many',
 					'lookuptable' => 'rivers',
 					'lookupkey' => 'id',
@@ -380,7 +380,7 @@ $admin = array(
    		 			'required' => true,
    		 		   ),	
    		'captain'	=> array(
-   		 			'title' => 'Êàïèòàí',
+   		 			'title' => 'ÐšÐ°Ð¿Ð¸Ñ‚Ð°Ð½',
 					'type'  => 'one2many',
 					'lookuptable' => 'people',
 					'lookupkey' => 'id',
@@ -390,14 +390,14 @@ $admin = array(
 					'hide'  => true,
    		 		   ),	
    		'title'		=> array(
-   		 			'title' => 'Çàãëàâèå',
+   		 			'title' => 'Ð—Ð°Ð³Ð»Ð°Ð²Ð¸Ðµ',
    		 			'type'  => 'text',
    		 			'size'  => '40',
    		 			'max'   => '250',
    		 			'required' => true,
    		 		   ),	
    		'body'		=> array(
-   		 			'title' => 'Òåêñò',
+   		 			'title' => 'Ð¢ÐµÐºÑÑ‚',
    		 			'type'  => 'memo',
    		 			'size'  => 100,
    		 			'lines' => 15,
@@ -405,7 +405,7 @@ $admin = array(
    		 			'required' => true,
    		 		   ),	
    		'author_id'	=> array(
-   		 			'title' => 'Àâòîð',
+   		 			'title' => 'ÐÐ²Ñ‚Ð¾Ñ€',
 					'type'  => 'one2many',
 					'lookuptable' => 'people',
 					'lookupkey' => 'id',
@@ -414,14 +414,14 @@ $admin = array(
    		 			'required' => false,
    		 		   ),	
    		'author'	=> array(
-   		 			'title' => 'Àâòîð [âíåøíèé]',
+   		 			'title' => 'ÐÐ²Ñ‚Ð¾Ñ€ [Ð²Ð½ÐµÑˆÐ½Ð¸Ð¹]',
    		 			'type'  => 'text',
    		 			'size'  => '40',
    		 			'max'   => '150',
    		 			'required' => false,
    		 		   ),	
    		'pohody_doc'	=> array(
-   		 			'title' => 'Äíåâíèêè',
+   		 			'title' => 'Ð”Ð½ÐµÐ²Ð½Ð¸ÐºÐ¸',
 					'type'  => 'many2many',
 					'hide' => true,
 					'linktable' => 'pohody_docs',
@@ -433,7 +433,7 @@ $admin = array(
    		 			'required' => true,
    		 		   ),	
    		'ekipazh_people' => array(
-   		 			'title' => 'Ýêèïàæ',
+   		 			'title' => 'Ð­ÐºÐ¸Ð¿Ð°Ð¶',
 					'type'  => 'many2many',
 					'hide' => true,
 					'linktable' => 'ekipazh',
@@ -445,7 +445,7 @@ $admin = array(
    		 			'required' => true,
    		 		   ),	
    		'boat_id'	 => array(
-   		 			'title' => 'Ñóäíî',
+   		 			'title' => 'Ð¡ÑƒÐ´Ð½Ð¾',
 					'type'  => 'one2many',
 					'lookuptable' => 'boats',
 					'lookupkey' => 'id',
@@ -454,7 +454,7 @@ $admin = array(
    		 			'required' => true,
    		 		   ),	
    		'pohod_id'	 => array(
-   		 			'title' => 'Ïîõîä',
+   		 			'title' => 'ÐŸÐ¾Ñ…Ð¾Ð´',
 					'type'  => 'one2many',
 					'lookuptable' => 'pohody',
 					'lookupkey' => 'id',
@@ -463,18 +463,18 @@ $admin = array(
    		 			'required' => true,
    		 		   ),	
    		'when_'		=> array(
-   		 			'title' => 'Äàòà',
+   		 			'title' => 'Ð”Ð°Ñ‚Ð°',
    		 			'type'  => 'date',
 					'default_now' => true,
    		 			'required' => true,
    		 		   ),	
    		'idpara'	=> array(
-   		 			'title' => '¹ àáçàöà',
+   		 			'title' => 'â„– Ð°Ð±Ð·Ð°Ñ†Ð°',
 					'type'  => 'int',
    		 			'required' => false,
    		 		   ),	
    		'pohod_id2'	 => array(
-   		 			'title' => 'Ïîõîä',
+   		 			'title' => 'ÐŸÐ¾Ñ…Ð¾Ð´',
 					'type'  => 'one2many',
 					'lookuptable' => 'pohody',
 					'lookupkey' => 'id',
@@ -483,7 +483,7 @@ $admin = array(
    		 			'required' => false,
    		 		   ),	
    		'man_id'	=> array(
-   		 			'title' => 'Ïîõîäíèê',
+   		 			'title' => 'ÐŸÐ¾Ñ…Ð¾Ð´Ð½Ð¸Ðº',
 					'type'  => 'one2many',
 					'lookuptable' => 'people',
 					'lookupkey' => 'id',
@@ -492,36 +492,36 @@ $admin = array(
    		 			'required' => false,
    		 		   ),	
    		'order_'	=> array(
-   		 			'title' => 'Ïîðÿäîê',
+   		 			'title' => 'ÐŸÐ¾Ñ€ÑÐ´Ð¾Ðº',
 					'type'  => 'int',
    		 			'required' => true,
    		 		   ),	
    		'width'		=> array(
-   		 			'title' => 'Øèðèíà êàðòèíêè',
+   		 			'title' => 'Ð¨Ð¸Ñ€Ð¸Ð½Ð° ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸',
 					'type'  => 'int',
    		 			'required' => true,
 					'hide'  => true,
    		 		   ),	
    		'height'	=> array(
-   		 			'title' => 'Âûñîòà êàðòèíêè',
+   		 			'title' => 'Ð’Ñ‹ÑÐ¾Ñ‚Ð° ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸',
 					'type'  => 'int',
    		 			'required' => true,
 					'hide'  => true,
    		 		   ),	
    		'thumb_width'	=> array(
-   		 			'title' => 'Øèðèíà ìàë. êàðòèíêè',
+   		 			'title' => 'Ð¨Ð¸Ñ€Ð¸Ð½Ð° Ð¼Ð°Ð». ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸',
 					'type'  => 'int',
    		 			'required' => true,
 					'hide'  => true,
    		 		   ),	
    		'thumb_height'	=> array(
-   		 			'title' => 'Âûñîòà ìàë. êàðòèíêè',
+   		 			'title' => 'Ð’Ñ‹ÑÐ¾Ñ‚Ð° Ð¼Ð°Ð». ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸',
 					'type'  => 'int',
    		 			'required' => true,
 					'hide'  => true,
    		 		   ),	
    		'river_id'	=> array(
-   		 			'title' => 'Ðåêà',
+   		 			'title' => 'Ð ÐµÐºÐ°',
 					'type'  => 'one2many',
 					'lookuptable' => 'rivers',
 					'lookupkey' => 'id',

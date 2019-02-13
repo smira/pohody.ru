@@ -19,11 +19,11 @@ $priv = array("forum_read"=>true, "forum_write"=>true);
 
 
 $forums = array(
-	1 => "Ñâîáîäíîå îáùåíèå",
-	2 => "Êóäà ïîéòè ëåòîì?",
-	3 => "Êóäà ïîéòè âåñíîé?",
-	4 => "Ñíàğÿæåíèå",
-	5 => "Ïî ïîâîäó ñàéòà",
+	1 => "Ğ¡Ğ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ",
+	2 => "ĞšÑƒĞ´Ğ° Ğ¿Ğ¾Ğ¹Ñ‚Ğ¸ Ğ»ĞµÑ‚Ğ¾Ğ¼?",
+	3 => "ĞšÑƒĞ´Ğ° Ğ¿Ğ¾Ğ¹Ñ‚Ğ¸ Ğ²ĞµÑĞ½Ğ¾Ğ¹?",
+	4 => "Ğ¡Ğ½Ğ°Ñ€ÑĞ¶ĞµĞ½Ğ¸Ğµ",
+	5 => "ĞŸĞ¾ Ğ¿Ğ¾Ğ²Ğ¾Ğ´Ñƒ ÑĞ°Ğ¹Ñ‚Ğ°",
 );
 //if ($HTTP_SESSION_VARS["admin"] === "admin")
 	//$priv = array("forum_all"=>true,"forum_read"=>true, "forum_write"=>true);
@@ -42,19 +42,19 @@ $forum->user["loader_frames"] = 4;
 $forum->user["mail_prefix"] = "[pohody.ru] ";
 
 $form_forum = array(
-	"title" => array("title"=>"Íàçâàíèå ôîğóìà", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
-	"author_name" => array("title"=>"Èìÿ ñîçäàòåëÿ", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
-	"author_mail" => array("title"=>"E-mail ñîçäàòåëÿ", "type"=>"char", "max"=>64, "regexp"=>"/^[\w\.\-]+@[\w\.\-]+\.[\w]{2,4}$/", "class"=>"edit"),
-	"notify_answers" => array("title"=>"Ïğèñûëàòü êîïèè ñîîáùåíèé ïî ïî÷òå", "type"=>"bit"),
-	"body" => array("title"=>"Îïèñàíèå", "type"=>"text", "notnull"=>false)
+	"title" => array("title"=>"ĞĞ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ğµ Ñ„Ğ¾Ñ€ÑƒĞ¼Ğ°", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_name" => array("title"=>"Ğ˜Ğ¼Ñ ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ĞµĞ»Ñ", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_mail" => array("title"=>"E-mail ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ĞµĞ»Ñ", "type"=>"char", "max"=>64, "regexp"=>"/^[\w\.\-]+@[\w\.\-]+\.[\w]{2,4}$/", "class"=>"edit"),
+	"notify_answers" => array("title"=>"ĞŸÑ€Ğ¸ÑÑ‹Ğ»Ğ°Ñ‚ÑŒ ĞºĞ¾Ğ¿Ğ¸Ğ¸ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğ¹ Ğ¿Ğ¾ Ğ¿Ğ¾Ñ‡Ñ‚Ğµ", "type"=>"bit"),
+	"body" => array("title"=>"ĞĞ¿Ğ¸ÑĞ°Ğ½Ğ¸Ğµ", "type"=>"text", "notnull"=>false)
 );
 
 $form_message = array(
-	"title" => array("title"=>"Òåìà ñîîáùåíèÿ", "type"=>"char", "min"=>5, "max"=>64, "notnull"=>true, "class"=>"edit"),
-	"author_name" => array("title"=>"Èìÿ àâòîğà", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
-	"author_mail" => array("title"=>"E-mail àâòîğà", "type"=>"char", "max"=>64, "regexp"=>"/^[\w\.\-]+@[\w\.\-]+\.[\w]{2,4}$/", "class"=>"edit"),
-	"notify_answers" => array("title"=>"Ïğèñûëàòü êîïèè îòâåòîâ ïî ïî÷òå", "type"=>"bit"),
-	"body" => array("title"=>"Òåêñò", "type"=>"text", "notnull"=>true)
+	"title" => array("title"=>"Ğ¢ĞµĞ¼Ğ° ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ñ", "type"=>"char", "min"=>5, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_name" => array("title"=>"Ğ˜Ğ¼Ñ Ğ°Ğ²Ñ‚Ğ¾Ñ€Ğ°", "type"=>"char", "min"=>2, "max"=>64, "notnull"=>true, "class"=>"edit"),
+	"author_mail" => array("title"=>"E-mail Ğ°Ğ²Ñ‚Ğ¾Ñ€Ğ°", "type"=>"char", "max"=>64, "regexp"=>"/^[\w\.\-]+@[\w\.\-]+\.[\w]{2,4}$/", "class"=>"edit"),
+	"notify_answers" => array("title"=>"ĞŸÑ€Ğ¸ÑÑ‹Ğ»Ğ°Ñ‚ÑŒ ĞºĞ¾Ğ¿Ğ¸Ğ¸ Ğ¾Ñ‚Ğ²ĞµÑ‚Ğ¾Ğ² Ğ¿Ğ¾ Ğ¿Ğ¾Ñ‡Ñ‚Ğµ", "type"=>"bit"),
+	"body" => array("title"=>"Ğ¢ĞµĞºÑÑ‚", "type"=>"text", "notnull"=>true)
 );
 
 
@@ -69,7 +69,7 @@ switch ($job)
 {
 case "tree":
 	if (!$priv["forum_all"] && !$priv["forum_read"])
-		std_error("Íåâîçìîæíî îòîáğàçèòü äåğåâî ñîîáùåíèé: íåäîñòàòî÷íî ïğàâ");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ¾Ñ‚Ğ¾Ğ±Ñ€Ğ°Ğ·Ğ¸Ñ‚ÑŒ Ğ´ĞµÑ€ĞµĞ²Ğ¾ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğ¹: Ğ½ĞµĞ´Ğ¾ÑÑ‚Ğ°Ñ‚Ğ¾Ñ‡Ğ½Ğ¾ Ğ¿Ñ€Ğ°Ğ²");
 
 	$forum_id = nav_get("forum", "integer", 0) or $forum_id = false;
 	$topic_id = nav_get("topic", "integer", 0) or $topic_id = false;
@@ -81,9 +81,9 @@ case "tree":
 	break;
 case "delete":
 	if (!$priv["forum_all"] && !$priv["forum_moderate"] && !$priv["forum_delete"])
-		std_error("Íåâîçìîæíî óäàëèòü ñîîáùåíèå: íåäîñòàòî÷íî ïğàâ");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ ÑƒĞ´Ğ°Ğ»Ğ¸Ñ‚ÑŒ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ: Ğ½ĞµĞ´Ğ¾ÑÑ‚Ğ°Ñ‚Ğ¾Ñ‡Ğ½Ğ¾ Ğ¿Ñ€Ğ°Ğ²");
 	if (!$id)
-		std_error("Íå óêàçàí id óäàëÿåìîãî ñîîáùåíèÿ");
+		std_error("ĞĞµ ÑƒĞºĞ°Ğ·Ğ°Ğ½ id ÑƒĞ´Ğ°Ğ»ÑĞµĞ¼Ğ¾Ğ³Ğ¾ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ñ");
 
 	$forum_id = $forum->con->property("SELECT forum_id FROM ".$forum->table." WHERE id = ".$id);
 	if ($forum->delete_message($id))
@@ -92,10 +92,10 @@ case "delete":
 		die();
 	}
 	else
-		std_error("Íåâîçìîæíî óäàëèòü ñîîáùåíèå");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ ÑƒĞ´Ğ°Ğ»Ğ¸Ñ‚ÑŒ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ");
 case "forum":
 	if (!$priv["forum_all"] && !$priv["forum_admin"])
-		std_error("Íåâîçìîæíî ñîçäàòü/èçìåíèòü: íåäîñòàòî÷íî ïğàâ");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ/Ğ¸Ğ·Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ: Ğ½ĞµĞ´Ğ¾ÑÑ‚Ğ°Ñ‚Ğ¾Ñ‡Ğ½Ğ¾ Ğ¿Ñ€Ğ°Ğ²");
 	$remote = false;
 	if ($id && !form_is_sent("forum"))
 		$remote = $con->qquery("SELECT * FROM ".$forum->table." WHERE id = ".$id);
@@ -105,15 +105,15 @@ case "forum":
 		if ($id?$forum->modify_message($id, $values):$forum->new_forum($values))
 			die_success(&$values);
 		else
-			std_error("Íåâîçìîæíî ñîçäàòü/èçìåíèòü ôîğóì");
+			std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ/Ğ¸Ğ·Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ Ñ„Ğ¾Ñ€ÑƒĞ¼");
 	}
 
-	forum_edit($id?"Èçìåíåíèå èíôîğìàöèè î ôîğóìå":"Ñîçäàíèå ôîğóìà", $form_forum, &$html, &$values, &$errors, &$form_tag);
+	forum_edit($id?"Ğ˜Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸Ğµ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¾ Ñ„Ğ¾Ñ€ÑƒĞ¼Ğµ":"Ğ¡Ğ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ Ñ„Ğ¾Ñ€ÑƒĞ¼Ğ°", $form_forum, &$html, &$values, &$errors, &$form_tag);
 	break;
 
 case "edit":
 	if (!$priv["forum_all"] && !$priv["forum_moderate"] && !$priv["forum_edit"])
-		std_error("Íåâîçìîæíî èçìåíèòü ñîîáùåíèå: íåäîñòàòî÷íî ïğàâ");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ¸Ğ·Ğ¼ĞµĞ½Ğ¸Ñ‚ÑŒ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ: Ğ½ĞµĞ´Ğ¾ÑÑ‚Ğ°Ñ‚Ğ¾Ñ‡Ğ½Ğ¾ Ğ¿Ñ€Ğ°Ğ²");
 	if (form_create(&$form_message, false, "forum", "", false, &$html, &$values, &$errors, &$form_tag))
 	{
 		if ($forum->modify_message($id, $values))
@@ -123,19 +123,19 @@ case "edit":
 			die_success(&$values);
 		}
 		else
-			std_error("Íåâîçìîæíî ğåäàêòèğîâàòü ñîîáùåíèå");
+			std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ñ€ĞµĞ´Ğ°ĞºÑ‚Ğ¸Ñ€Ğ¾Ğ²Ğ°Ñ‚ÑŒ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ");
 	}
 	break;
 
 case "answer":
 	if (!$priv["forum_all"] && !$priv["forum_write"])
-		std_error("Íåâîçìîæíî íàïèñàòü îòâåò íà ñîîáùåíèå: íåäîñòàòî÷íî ïğàâ");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ½Ğ°Ğ¿Ğ¸ÑĞ°Ñ‚ÑŒ Ğ¾Ñ‚Ğ²ĞµÑ‚ Ğ½Ğ° ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ: Ğ½ĞµĞ´Ğ¾ÑÑ‚Ğ°Ñ‚Ğ¾Ñ‡Ğ½Ğ¾ Ğ¿Ñ€Ğ°Ğ²");
 	if (form_create(&$form_message, false, "forum", "", false, &$html, &$values, &$errors, &$form_tag))
 	{
 		$values["parent_id"] = $id;
 		list($forum_id, $topic_id) = $con->qquery("SELECT forum_id, topic_id FROM ".$forum->table." WHERE id = ".$id);
 		if (!$forum_id)
-			std_error("Ñîîáùåíèå ïîâğåæäåíî");
+			std_error("Ğ¡Ğ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ Ğ¿Ğ¾Ğ²Ñ€ĞµĞ¶Ğ´ĞµĞ½Ğ¾");
 		if (!$topic_id)
 			$topic_id = $id;
 		list($msgs, $children, $ids) = $forum->read($forum_id, $topic_id);
@@ -145,14 +145,14 @@ case "answer":
 			die_success(&$values);
 		}
 		else
-			std_error("Íåâîçìîæíî äîáàâèòü ñîîáùåíèå");
+			std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ´Ğ¾Ğ±Ğ°Ğ²Ğ¸Ñ‚ÑŒ ÑĞ¾Ğ¾Ğ±Ñ‰ĞµĞ½Ğ¸Ğµ");
 	}
 	else print_r($errors);
 	break;
 
 case "topic":
 	if (!$priv["forum_all"] && !$priv["forum_write"])
-		std_error("Íåâîçìîæíî ñîçäàòü òåìó: íåäîñòàòî÷íî ïğàâ");
+		std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ Ñ‚ĞµĞ¼Ñƒ: Ğ½ĞµĞ´Ğ¾ÑÑ‚Ğ°Ñ‚Ğ¾Ñ‡Ğ½Ğ¾ Ğ¿Ñ€Ğ°Ğ²");
 	if (form_create(&$form_message, false, "forum", "", false, &$html, &$values, &$errors, &$form_tag))
 	{
 		if ($forum->new_topic($id, $values))
@@ -161,12 +161,12 @@ case "topic":
 			die_success(&$values);
 		}
 		else
-			std_error("Íåâîçìîæíî ñîçäàòü òåìó");
+			std_error("ĞĞµĞ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ Ñ‚ĞµĞ¼Ñƒ");
 	}
 	break;
 case "rebuild":
 	if (!$priv["forum_all"])
-		std_error("À ïğàâ-òî íåòó:)");
+		std_error("Ğ Ğ¿Ñ€Ğ°Ğ²-Ñ‚Ğ¾ Ğ½ĞµÑ‚Ñƒ:)");
 
 	$msgs = $forum->con->query("SELECT * FROM ".$forum->table);
 	while ($msg = $msgs->fetch_array())

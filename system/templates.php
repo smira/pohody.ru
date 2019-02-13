@@ -1,43 +1,43 @@
 <?
 
 // HTML templates for website
-$site_title = 'Жизнь походная';
-$s_pohody_ru = 'Походы.Ru :: ';
-$s_travels = 'Походы';
-$s_people = 'Походники';
-$s_rivers = 'Реки';
-$s_photos = 'Фотографии';
-$s_news = 'Новости';
-$s_forum = 'Общение';
-$s_articles = 'Статьи';
+$site_title = 'Р–РёР·РЅСЊ РїРѕС…РѕРґРЅР°СЏ';
+$s_pohody_ru = 'РџРѕС…РѕРґС‹.Ru :: ';
+$s_travels = 'РџРѕС…РѕРґС‹';
+$s_people = 'РџРѕС…РѕРґРЅРёРєРё';
+$s_rivers = 'Р РµРєРё';
+$s_photos = 'Р¤РѕС‚РѕРіСЂР°С„РёРё';
+$s_news = 'РќРѕРІРѕСЃС‚Рё';
+$s_forum = 'РћР±С‰РµРЅРёРµ';
+$s_articles = 'РЎС‚Р°С‚СЊРё';
 
-$s_info = 'Информация';
-$s_photo = 'Фотография';
-$s_pohody_uch = 'Участие в походах';
-$s_pohody_list = 'Список походов';
-$s_people_list = 'Все походники';
-$s_rivers_list = 'Список рек';
-$s_photos_list = 'Все фотографии';
-$s_pohod_info = 'Информация';
-$s_command = 'Команда';
-$s_relik = 'Реликвия';
-$s_river_pohody = 'Походы по этой реке';
-$s_by_pohod = 'по походам';
-$s_by_day = 'Навигация';
-$s_pages = 'Страницы';
-$s_prev = "<img src='/design/less.gif' width='10' height='7'>&nbsp;Предыдущая";
-$s_next = "Следующая&nbsp;<img src='/design/more.gif' width='10' height='7'>";
-$s_back = "<img src='/design/up.gif' width='7' height='10'>&nbsp;Вернуться в галерею <img src='/design/up.gif' width='7' height='10'>";
-$s_no_desc = '&lt;Нет подписи&gt;';
-$s_search = 'Поиск';
-$s_diaries = 'Дневники';
-$s_favourites = 'избранное';
-$s_info = 'Информация';
-$s_books = 'Книги';
-$s_contents = 'Оглавление';
+$s_info = 'РРЅС„РѕСЂРјР°С†РёСЏ';
+$s_photo = 'Р¤РѕС‚РѕРіСЂР°С„РёСЏ';
+$s_pohody_uch = 'РЈС‡Р°СЃС‚РёРµ РІ РїРѕС…РѕРґР°С…';
+$s_pohody_list = 'РЎРїРёСЃРѕРє РїРѕС…РѕРґРѕРІ';
+$s_people_list = 'Р’СЃРµ РїРѕС…РѕРґРЅРёРєРё';
+$s_rivers_list = 'РЎРїРёСЃРѕРє СЂРµРє';
+$s_photos_list = 'Р’СЃРµ С„РѕС‚РѕРіСЂР°С„РёРё';
+$s_pohod_info = 'РРЅС„РѕСЂРјР°С†РёСЏ';
+$s_command = 'РљРѕРјР°РЅРґР°';
+$s_relik = 'Р РµР»РёРєРІРёСЏ';
+$s_river_pohody = 'РџРѕС…РѕРґС‹ РїРѕ СЌС‚РѕР№ СЂРµРєРµ';
+$s_by_pohod = 'РїРѕ РїРѕС…РѕРґР°Рј';
+$s_by_day = 'РќР°РІРёРіР°С†РёСЏ';
+$s_pages = 'РЎС‚СЂР°РЅРёС†С‹';
+$s_prev = "<img src='/design/less.gif' width='10' height='7'>&nbsp;РџСЂРµРґС‹РґСѓС‰Р°СЏ";
+$s_next = "РЎР»РµРґСѓСЋС‰Р°СЏ&nbsp;<img src='/design/more.gif' width='10' height='7'>";
+$s_back = "<img src='/design/up.gif' width='7' height='10'>&nbsp;Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР°Р»РµСЂРµСЋ <img src='/design/up.gif' width='7' height='10'>";
+$s_no_desc = '&lt;РќРµС‚ РїРѕРґРїРёСЃРё&gt;';
+$s_search = 'РџРѕРёСЃРє';
+$s_diaries = 'Р”РЅРµРІРЅРёРєРё';
+$s_favourites = 'РёР·Р±СЂР°РЅРЅРѕРµ';
+$s_info = 'РРЅС„РѕСЂРјР°С†РёСЏ';
+$s_books = 'РљРЅРёРіРё';
+$s_contents = 'РћРіР»Р°РІР»РµРЅРёРµ';
 
 $main_menu = array(
-	'main' 		=> array('title' => 'Главная', 'url' => '/'),
+	'main' 		=> array('title' => 'Р“Р»Р°РІРЅР°СЏ', 'url' => '/'),
 	'photo' 	=> array('title' => $s_photos, 'url' => '/photo.phtml'),
 	'travel' 	=> array('title' => $s_travels, 'url' => '/travels.phtml'),
 	'people' 	=> array('title' => $s_people, 'url' => '/people.phtml'),
@@ -50,8 +50,8 @@ $nav = array(
 	array('title' => $site_title, 'url' => '/')
 	);
 
-$copyright = '<b>По поводу сайта пишите</b>: <a href="mailto:smir@pohody.ru">Андрей Смирнов</a><br>'.
-   '<b>Материалы</b>: Александр Семенов, Ирина Терешкина, Федор и Ольга Блюхер, Андрей Калашников, Сергей Поездник, Игорь Когановский, Павел ???, Екатерина Бони, Никита Федоров';
+$copyright = '<b>РџРѕ РїРѕРІРѕРґСѓ СЃР°Р№С‚Р° РїРёС€РёС‚Рµ</b>: <a href="mailto:smir@pohody.ru">РђРЅРґСЂРµР№ РЎРјРёСЂРЅРѕРІ</a><br>'.
+   '<b>РњР°С‚РµСЂРёР°Р»С‹</b>: РђР»РµРєСЃР°РЅРґСЂ РЎРµРјРµРЅРѕРІ, РСЂРёРЅР° РўРµСЂРµС€РєРёРЅР°, Р¤РµРґРѕСЂ Рё РћР»СЊРіР° Р‘Р»СЋС…РµСЂ, РђРЅРґСЂРµР№ РљР°Р»Р°С€РЅРёРєРѕРІ, РЎРµСЂРіРµР№ РџРѕРµР·РґРЅРёРє, РРіРѕСЂСЊ РљРѕРіР°РЅРѕРІСЃРєРёР№, РџР°РІРµР» ???, Р•РєР°С‚РµСЂРёРЅР° Р‘РѕРЅРё, РќРёРєРёС‚Р° Р¤РµРґРѕСЂРѕРІ';
 
 
 $gallery_w = 6;
@@ -67,7 +67,7 @@ function html($title, $menu, $func)
 <html>
 <head>
 <title><?=build_title($title, $menu)?></title>
-<meta name="keywords" value="жизнь,походная,походы,река,байдарка,катамаран,порог" />
+<meta name="keywords" value="Р¶РёР·РЅСЊ,РїРѕС…РѕРґРЅР°СЏ,РїРѕС…РѕРґС‹,СЂРµРєР°,Р±Р°Р№РґР°СЂРєР°,РєР°С‚Р°РјР°СЂР°РЅ,РїРѕСЂРѕРі" />
 <link rel="stylesheet" type="text/css" href="<?=$print ? 'print.css' : 'main.css' ?>" />
 </head>
 <body>
@@ -220,7 +220,7 @@ function tmpl_people_info($info)
   if ($info['email'] != '')
 	  $result .= "<b>e-mail</b>: <a href='mailto:{$info['email']}'>{$info['email']}</a><br>";
   if ($info['homepage'] != '')
-	  $result .= "<b>страничка</b>: <a href='{$info['homepage']}'>{$info['homepage']}</a><br>";
+	  $result .= "<b>СЃС‚СЂР°РЅРёС‡РєР°</b>: <a href='{$info['homepage']}'>{$info['homepage']}</a><br>";
   return $result;
 }
 
@@ -251,13 +251,13 @@ function tmpl_pohod_info($info)
 {
    $result = '';
    if ($info['river'])
-   	$result .= "<b>Река</b>: <a href='/rivers.phtml?id={$info['river_id']}'>{$info['river']}</a><br>";
+   	$result .= "<b>Р РµРєР°</b>: <a href='/rivers.phtml?id={$info['river_id']}'>{$info['river']}</a><br>";
    if ($info['season'])
-   	$result .= "<b>Сезон</b>: {$info['season']}<br>";
+   	$result .= "<b>РЎРµР·РѕРЅ</b>: {$info['season']}<br>";
    if ($info['year'])
-   	$result .= "<b>Год</b>: {$info['year']}<br>";
+   	$result .= "<b>Р“РѕРґ</b>: {$info['year']}<br>";
    if ($info['captain'])
-   	$result .= "<b>Капитан похода</b>: <a href='/people.phtml?id={$info['captain_id']}'>{$info['captain']}</a><br>";
+   	$result .= "<b>РљР°РїРёС‚Р°РЅ РїРѕС…РѕРґР°</b>: <a href='/people.phtml?id={$info['captain_id']}'>{$info['captain']}</a><br>";
    return $result;
 }
 
@@ -383,7 +383,7 @@ function reformat($line)
 function reformat_author($id)
 {
   global $con;
-  return "<i>Автор дневника</i>: <a href=\"/people.phtml?id=$id\">".$con->property("SELECT name FROM people WHERE id=$id")."</a>";
+  return "<i>РђРІС‚РѕСЂ РґРЅРµРІРЅРёРєР°</i>: <a href=\"/people.phtml?id=$id\">".$con->property("SELECT name FROM people WHERE id=$id")."</a>";
 }
 
 function excerpt($text)
@@ -644,7 +644,7 @@ function tmpl_index_search()
    $text = <<< EOF
        <form method="post">
        <table border='0'>
-       <tr><td><b>Искать:<b></td><td><input type='text' name='search' size=30></td></tr>
+       <tr><td><b>РСЃРєР°С‚СЊ:<b></td><td><input type='text' name='search' size=30></td></tr>
        <tr><td> </td><td>
        <table width='100%'>
        <tr>
@@ -669,12 +669,12 @@ function tmpl_index_adv()
    global $s_info;
    $text = <<< EOF
     <ul class='img'>
-    <li>Вы знаете, что еще должно быть на этом сайте?
-    <li>У Вас есть описание/дневник/фотографии похода, которые Вы бы хотели выложить
-    на этот сайт?
-    <li>Вы просто хотите нам помочь?
+    <li>Р’С‹ Р·РЅР°РµС‚Рµ, С‡С‚Рѕ РµС‰Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РЅР° СЌС‚РѕРј СЃР°Р№С‚Рµ?
+    <li>РЈ Р’Р°СЃ РµСЃС‚СЊ РѕРїРёСЃР°РЅРёРµ/РґРЅРµРІРЅРёРє/С„РѕС‚РѕРіСЂР°С„РёРё РїРѕС…РѕРґР°, РєРѕС‚РѕСЂС‹Рµ Р’С‹ Р±С‹ С…РѕС‚РµР»Рё РІС‹Р»РѕР¶РёС‚СЊ
+    РЅР° СЌС‚РѕС‚ СЃР°Р№С‚?
+    <li>Р’С‹ РїСЂРѕСЃС‚Рѕ С…РѕС‚РёС‚Рµ РЅР°Рј РїРѕРјРѕС‡СЊ?
     </ul>
-    <b>Пишите<b>: <a href='mailto:info@pohody.ru'>info@pohody.ru</a>
+    <b>РџРёС€РёС‚Рµ<b>: <a href='mailto:info@pohody.ru'>info@pohody.ru</a>
 EOF;
    block($s_info, $text, "100%");
 }

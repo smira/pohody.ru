@@ -11,7 +11,7 @@ function forums_draw(&$msg, $n)
 	echo "<div style='margin: 1em;'>";
 	echo ($n+1).". <a href='?forum=".$msg["id"]."'>".$msg["title"]."</a>";
 	if ($priv["forum_all"] || $priv["forum_edit_root"])
-		echo " (<a href='javascript:forumControl(\"forum\", ".$msg["id"].")'>изменить</a> | <a href='javascript:forumControl(\"delete\", ".$msg["id"].")'>удалить</a>)";
+		echo " (<a href='javascript:forumControl(\"forum\", ".$msg["id"].")'>РёР·РјРµРЅРёС‚СЊ</a> | <a href='javascript:forumControl(\"delete\", ".$msg["id"].")'>СѓРґР°Р»РёС‚СЊ</a>)";
 
 	echo " (".$msg["children"]."; ".$msg["descendants"]."; ".date("m.d.Y H:i:s", $msg["updated"]).")";
 	echo "<br>".nl2br($msg["body"]);
@@ -23,7 +23,7 @@ function forums_draw_suffix()
 {
 	global $priv;
 	if ($priv["forum_all"] || $priv["forum_edit_root"])
-		echo "<div style='margin: 1em;'><a href='javascript:forumControl(\"forum\")'>Создать новый форум</a></div>";
+		echo "<div style='margin: 1em;'><a href='javascript:forumControl(\"forum\")'>РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ С„РѕСЂСѓРј</a></div>";
 }
 
 function forum_draw($msg)
@@ -63,12 +63,12 @@ function slider($forum_name, $forum, $sel, $bottom = false)
 </select></td>
 
 <td class="pages" style="font-weight: bolder">
-<a href="javascript:forumControl('topic', <?=$forum_id?>)">Новая тема</a>
+<a href="javascript:forumControl('topic', <?=$forum_id?>)">РќРѕРІР°СЏ С‚РµРјР°</a>
 </td>
 
 
 
-<td class="pages" style="text-align:right">страницы:<b> 
+<td class="pages" style="text-align:right">СЃС‚СЂР°РЅРёС†С‹:<b> 
 <?
 	for ($i = 0; $i < 10; $i++)
 		if ($i == $sel)
@@ -100,7 +100,7 @@ function forum_tree2()
         $forum = $forum_priv["forum"];
         $forum_id = $forum_priv["forum_id"];
 	$topic_id = $forum_priv["topic_id"];
-	$forum_name = "Форум";
+	$forum_name = "Р¤РѕСЂСѓРј";
 	if ($forum_id)
 		list($forum_name) = $forum->read_message($forum_id, "title");
 
@@ -171,7 +171,7 @@ select.f_zagol { font-size: 12px; width: 200px; background-color: #E2E2E2; }
 		{
 			$topics = $forum->topics($forum_id);
 			$page = floor(array_search($go_topic_id, $topics)/$page_size);
-			$start = $page*$page_size; // счетчик $topic'ов для вывода тем
+			$start = $page*$page_size; // СЃС‡РµС‚С‡РёРє $topic'РѕРІ РґР»СЏ РІС‹РІРѕРґР° С‚РµРј
 		}
 		else {
 			$topics = $forum->topics($forum_id, ($page*$page_size).", ".$page_size);
@@ -255,10 +255,10 @@ body       {margin: 0px; padding: 0px; background: white;}
 			echo "<tr><td width=120>".$form[$key]["title"].":";
 			echo "</td><td colspan=2".($quoting?" rowspan=2":"").">".$htm."</td></tr>\n";
 			if ($quoting)
-				echo "<tr><td class=quote><a href='javascript:quote_help()'>Цитирование</a>:".
-					"<br><input type=radio name=quoting value=0 checked> Нет".
-					"<br><input type=radio name=quoting value=1> Есть".
-					"<br><input type=radio name=quoting value=2> Полное</td></tr>";
+				echo "<tr><td class=quote><a href='javascript:quote_help()'>Р¦РёС‚РёСЂРѕРІР°РЅРёРµ</a>:".
+					"<br><input type=radio name=quoting value=0 checked> РќРµС‚".
+					"<br><input type=radio name=quoting value=1> Р•СЃС‚СЊ".
+					"<br><input type=radio name=quoting value=2> РџРѕР»РЅРѕРµ</td></tr>";
 			break;
 		default:
 			echo "<tr class=fix><td width=120>".$form[$key]["title"].":</td><td colspan=2>".$htm."</td></tr>\n";
@@ -268,11 +268,11 @@ body       {margin: 0px; padding: 0px; background: white;}
 <tr class=fix>
 	<td></td>
 	<td>
-		<input type="submit" value="ОК" class=btn>
+		<input type="submit" value="РћРљ" class=btn>
 	</td>
 	<td align=right>
-		<input type="reset" value="Вернуть" class=btn>
-		<input type="button" onclick="window.close()" value="Закрыть" class=btn>
+		<input type="reset" value="Р’РµСЂРЅСѓС‚СЊ" class=btn>
+		<input type="button" onclick="window.close()" value="Р—Р°РєСЂС‹С‚СЊ" class=btn>
 	</td>
 </td></tr>
 </table>
@@ -319,17 +319,17 @@ function forum_mail_answer($msg)
 	{
 		$mail_sent[$msg["author_mail"]] = true;
 		$body = 
-"На ваше сообщение \"".$msg["title"]."\" (".$forum->path."?forum=".$reply["forum_id"]."&go=".$msg["id"].") ".
-"появился новый ответ:\n".
+"РќР° РІР°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ \"".$msg["title"]."\" (".$forum->path."?forum=".$reply["forum_id"]."&go=".$msg["id"].") ".
+"РїРѕСЏРІРёР»СЃСЏ РЅРѕРІС‹Р№ РѕС‚РІРµС‚:\n".
 "\n-------------------------------------------------\n".
 "URL:    ".$forum->path."?forum=".$reply["forum_id"]."&go=".$reply["id"]."\n".
-"Автор:  ".$reply["author_name"].($reply["author_mail"]?" <".$reply["author_mail"].">":"")."\n".
-"Тема:   ".$reply["title"]."\n".
-"Время:  ".date("H:i (d.m.Y)")."\n".
+"РђРІС‚РѕСЂ:  ".$reply["author_name"].($reply["author_mail"]?" <".$reply["author_mail"].">":"")."\n".
+"РўРµРјР°:   ".$reply["title"]."\n".
+"Р’СЂРµРјСЏ:  ".date("H:i (d.m.Y)")."\n".
 "-------------------------------------------------\n".
 $reply["body"]."\n".
 "\n-------------------------------------------------\n".
-"URL форума: ".$forum->path."?forum=".$reply["forum_id"]."\n";
+"URL С„РѕСЂСѓРјР°: ".$forum->path."?forum=".$reply["forum_id"]."\n";
 		$from = $reply["author_name"]." <".$reply["author_mail"].">";
 		mail($msg["author_mail"], cyr($forum->user["mail_prefix"].$reply["title"]), cyr($body), cyr("From: $from\nReply-To: $from"));
 	}
