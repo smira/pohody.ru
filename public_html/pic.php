@@ -1,6 +1,6 @@
-<?
+<?php
 
-chdir($HTTP_SERVER_VARS["DOCUMENT_ROOT"]."/..");
+chdir($_SERVER["DOCUMENT_ROOT"]."/..");
 require('system/core.php');
 
 $id = nav_get("id", "integer");
@@ -17,6 +17,6 @@ $text = "<p style='text-align: center; font-size: 14px'><img src='/images/".img_
 <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-<? block($title, $text) ?>
+<?php block($title, $text) ?>
 </body>
 </html>

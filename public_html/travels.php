@@ -1,6 +1,6 @@
-<?
+<?php
 
-chdir($HTTP_SERVER_VARS["DOCUMENT_ROOT"]."/..");
+chdir($_SERVER["DOCUMENT_ROOT"]."/..");
 require('system/core.php');
 
 $id = nav_get('id', 'integer', -1);
@@ -23,13 +23,13 @@ function travels_body()
 	$r = $con->query("SELECT pohody.id, pohody.season, pohody.year, ".
 	    "rivers.name FROM pohody INNER JOIN rivers ON pohody.river = ".
 	    "rivers.id ORDER BY pohody.year, pohody.number");
-	?><h1><?=$s_pohody_list?></h1><?
-	?><ul class='img'><?
+	?><h1><?=$s_pohody_list?></h1><?php
+	?><ul class='img'><?php
 	while ($row = $r->fetch_array())
 	{
-		?><li><a href='/travels.phtml?id=<?=$row[0]?>'><?=$row[3]?></a>, <?=$row[1]?> <?=$row[2]?></li><?
+		?><li><a href='/travels.php?id=<?=$row[0]?>'><?=$row[3]?></a>, <?=$row[1]?> <?=$row[2]?></li><?php
 	}
-	?></ul><?
+	?></ul><?php
 }
 
 function travels_info()
@@ -77,19 +77,19 @@ function travels_info()
 	else 
 		$result = '';
 
-	?><div class="vynos"><table cellspacing=0 cellpadding=0><tr><td><?
+	?><div class="vynos"><table cellspacing=0 cellpadding=0><tr><td><?php
 	$info = tmpl_pohod_info($row);
 	if ($info != "")
 		block($s_pohod_info, $info,"100%");
 	if (count($descriptions) > 1)
 	{
-		?><br><?
+		?><br><?php
 		block($s_diaries, tmpl_diaries_list($descriptions, $desc_id, $row['id']),"100%");
 	}	
 	$info = tmpl_pohod_command($row);
 	if ($info != "")
 	{
-		?><br><?
+		?><br><?php
 		block($s_command, $info,"100%",false,true);
         }
 	$relik = $con->qquery("SELECT id, description, thumb_width, ".
@@ -97,17 +97,17 @@ function travels_info()
 	    "WHERE idpohod = {$row['id']} AND idpara = -1");
 	if ($relik)
 	{
-		?><br><?
+		?><br><?php
 		block($s_relik, tmpl_thumbnail($relik),"100%","center");
 	}
 
 	if (count($days) > 0)
 	{
-		?><br><?
+		?><br><?php
 		block($s_by_day, tmpl_days_nav($days),"100%");
 	}
 
-	?></td></tr></table></div><?
+	?></td></tr></table></div><?php
 
 	echo $result;
 }

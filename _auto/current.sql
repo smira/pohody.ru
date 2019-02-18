@@ -4,10 +4,11 @@
 -- ------------------------------------------------------
 -- Server version	4.1.1-alpha
 
-/*!40101 SET NAMES cp1251*/;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=NO_AUTO_VALUE_ON_ZERO */;
+
+SET NAMES 'utf8';
 
 --
 -- Table structure for table `boats`
@@ -22,7 +23,7 @@ CREATE TABLE `boats` (
   `Description` text NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `Name` (`Name`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `boats`
@@ -53,7 +54,7 @@ CREATE TABLE `books` (
   PRIMARY KEY  (`id`),
   KEY `title` (`title`),
   KEY `topic` (`topic`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `books`
@@ -77,7 +78,7 @@ CREATE TABLE `comands` (
   `EKIPAZH` int(11) NOT NULL auto_increment,
   PRIMARY KEY  (`IDPOHOD`,`BOAT`,`EKIPAZH`),
   KEY `EKIPAZH` (`EKIPAZH`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `comands`
@@ -103,7 +104,7 @@ CREATE TABLE `documents` (
   `AUTHOR` varchar(150) default NULL,
   `AUTHOR_EMAIL` varchar(60) default NULL,
   PRIMARY KEY  (`ID`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `documents`
@@ -125,7 +126,7 @@ CREATE TABLE `ekipazh` (
   `idekipazh` int(11) NOT NULL default '0',
   `idpeople` int(11) NOT NULL default '0',
   PRIMARY KEY  (`idekipazh`,`idpeople`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `ekipazh`
@@ -149,7 +150,7 @@ CREATE TABLE `fav_photos` (
   `order_` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id_fav`,`id_photo`),
   KEY `order` (`order_`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `fav_photos`
@@ -173,7 +174,7 @@ CREATE TABLE `favorites` (
   `id_pohod` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `name` (`name`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `favorites`
@@ -215,7 +216,7 @@ CREATE TABLE `forum` (
   KEY `forum_id` (`forum_id`),
   KEY `topic_id` (`topic_id`),
   KEY `updated` (`updated`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `forum`
@@ -238,7 +239,7 @@ CREATE TABLE `news` (
   `text` mediumtext NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `when` (`when_`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `news`
@@ -265,7 +266,7 @@ CREATE TABLE `people` (
   `HOMEPAGE` varchar(70) default NULL,
   PRIMARY KEY  (`ID`),
   KEY `NAME` (`NAME`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `people`
@@ -300,7 +301,7 @@ CREATE TABLE `photos` (
   KEY `idpohod` (`idpohod`),
   KEY `idman` (`idman`),
   KEY `idriver` (`idriver`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `photos`
@@ -328,7 +329,7 @@ CREATE TABLE `pohody` (
   `CAPTAIN` int(11) default NULL,
   PRIMARY KEY  (`ID`),
   KEY `YEAR` (`YEAR`,`NUMBER`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `pohody`
@@ -350,7 +351,7 @@ CREATE TABLE `pohody_docs` (
   `idpohod` int(11) NOT NULL default '0',
   `iddoc` int(11) NOT NULL default '0',
   PRIMARY KEY  (`idpohod`,`iddoc`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `pohody_docs`
@@ -374,7 +375,7 @@ CREATE TABLE `rivers` (
   `DESCRIPTION` mediumtext NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `NAME` (`NAME`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `rivers`
@@ -400,7 +401,7 @@ CREATE TABLE `user` (
   `fullname` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) TYPE=MyISAM DEFAULT CHARSET=cp1251;
+) ;
 
 --
 -- Dumping data for table `user`

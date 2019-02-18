@@ -1,6 +1,6 @@
-<?
+<?php
 
-chdir($HTTP_SERVER_VARS["DOCUMENT_ROOT"]."/..");
+chdir($_SERVER["DOCUMENT_ROOT"]."/..");
 require('system/core.php');
 
 
@@ -18,21 +18,21 @@ else
 function rivers_body()
 {
 	global $con, $s_rivers_list;
-	?><h1><?=$s_rivers_list?></h1><?
+	?><h1><?=$s_rivers_list?></h1><?php
  	$r = $con->query("SELECT rivers.id, rivers.name FROM rivers ".
 	    "ORDER BY rivers.name");
-	?><ul class='img'><?
+	?><ul class='img'><?php
 	while ($row = $r->fetch_array())
 	{
-		?><li><a href='/rivers.phtml?id=<?=$row[0]?>'><?=$row[1]?></a><?
+		?><li><a href='/rivers.php?id=<?=$row[0]?>'><?=$row[1]?></a><?php
 	}
-	?></ul><?
+	?></ul><?php
 }
 
 function rivers_info()
 {
 	global $row, $s_river_pohody, $s_photos, $con;
-	?><div class="vynos"><table cellspacing=0 cellpadding=0><tr><td><?
+	?><div class="vynos"><table cellspacing=0 cellpadding=0><tr><td><?php
 	$info = tmpl_river_pohody($row);
 	if ($info != '')
 		block($s_river_pohody, $info,"100%");
@@ -43,11 +43,11 @@ function rivers_info()
 
         if (count($images) > 0)
         {
-		?><br><?
+		?><br><?php
 		$images = array_map('tmpl_thumbnail', $images);
 		block($s_photos, join('<br>',$images),"100%","center");
 	}
-	?></td></tr></table></div><?
+	?></td></tr></table></div><?php
 	// main part - description
 	$lines = explode("\n",htmlspecialchars($row['description']));
 	foreach ($lines as $line)

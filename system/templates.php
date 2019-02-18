@@ -8,7 +8,6 @@ $s_people = 'Походники';
 $s_rivers = 'Реки';
 $s_photos = 'Фотографии';
 $s_news = 'Новости';
-$s_forum = 'Общение';
 $s_articles = 'Статьи';
 
 $s_info = 'Информация';
@@ -38,12 +37,11 @@ $s_contents = 'Оглавление';
 
 $main_menu = array(
 	'main' 		=> array('title' => 'Главная', 'url' => '/'),
-	'photo' 	=> array('title' => $s_photos, 'url' => '/photo.phtml'),
-	'travel' 	=> array('title' => $s_travels, 'url' => '/travels.phtml'),
-	'people' 	=> array('title' => $s_people, 'url' => '/people.phtml'),
-	'rivers' 	=> array('title' => $s_rivers, 'url' => '/rivers.phtml'),
-	'articles' 	=> array('title' => $s_articles, 'url' => '/articles.phtml'),
-	'forum' 	=> array('title' => $s_forum, 'url' => '/forum.phtml'),
+	'photo' 	=> array('title' => $s_photos, 'url' => '/photo.php'),
+	'travel' 	=> array('title' => $s_travels, 'url' => '/travels.php'),
+	'people' 	=> array('title' => $s_people, 'url' => '/people.php'),
+	'rivers' 	=> array('title' => $s_rivers, 'url' => '/rivers.php'),
+	'articles' 	=> array('title' => $s_articles, 'url' => '/articles.php'),
 );
 
 $nav = array(
@@ -69,6 +67,13 @@ function html($title, $menu, $func)
 <title><?=build_title($title, $menu)?></title>
 <meta name="keywords" value="жизнь,походная,походы,река,байдарка,катамаран,порог" />
 <link rel="stylesheet" type="text/css" href="<?=$print ? 'print.css' : 'main.css' ?>" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
 <body>
 <table border='0' cellspacing='0' cellpadding='0' width='100%'>
@@ -239,7 +244,7 @@ function tmpl_people_pohody($info)
   $result = '<ul class="img">';
   foreach ($r as $row)
   {
-  	$result .= "<li><a href='/travels.phtml?id={$row['id']}'>{$row['name']} '{$row['year']}</a></li>";
+  	$result .= "<li><a href='/travels.php?id={$row['id']}'>{$row['name']} '{$row['year']}</a></li>";
   }
 
   $result .= '</ul>';
@@ -251,13 +256,13 @@ function tmpl_pohod_info($info)
 {
    $result = '';
    if ($info['river'])
-   	$result .= "<b>Река</b>: <a href='/rivers.phtml?id={$info['river_id']}'>{$info['river']}</a><br>";
+   	$result .= "<b>Река</b>: <a href='/rivers.php?id={$info['river_id']}'>{$info['river']}</a><br>";
    if ($info['season'])
    	$result .= "<b>Сезон</b>: {$info['season']}<br>";
    if ($info['year'])
    	$result .= "<b>Год</b>: {$info['year']}<br>";
    if ($info['captain'])
-   	$result .= "<b>Капитан похода</b>: <a href='/people.phtml?id={$info['captain_id']}'>{$info['captain']}</a><br>";
+   	$result .= "<b>Капитан похода</b>: <a href='/people.php?id={$info['captain_id']}'>{$info['captain']}</a><br>";
    return $result;
 }
 
@@ -280,7 +285,7 @@ function tmpl_pohod_command($info)
    	{
    		$result .= "<li>$boat\n<ul class='img'>";
    		foreach ($ekipazh as $man)
-   			$result .= "<li><a href='/people.phtml?id={$man['id']}'>{$man['name']}</a></li>";
+   			$result .= "<li><a href='/people.php?id={$man['id']}'>{$man['name']}</a></li>";
    		$result .= "</ul></li>";
    	}
    	$result .= '</ol>';
@@ -293,7 +298,7 @@ function tmpl_pohod_command($info)
 
 function tmpl_thumbnail($info)
 {
-	return sprintf("<a href='/pic.phtml?id=%d' target='_blank'>".
+	return sprintf("<a href='/pic.php?id=%d' target='_blank'>".
 	       "<img src='/images/s%04d.jpg' ".
 	       "width='%d' height='%d'>".
 	       "<br>%s</a>",$info['id'],$info['id'],$info['thumb_width'],
@@ -310,7 +315,7 @@ function tmpl_river_pohody($info)
 	{
 		$result = '<ul class="img">';
 		foreach ($r as $pohod)
-			$result .= "<li><a href='/travels.phtml?id={$pohod['id']}'>{$pohod['season']} {$pohod['year']}</a></li>";
+			$result .= "<li><a href='/travels.php?id={$pohod['id']}'>{$pohod['season']} {$pohod['year']}</a></li>";
 		$result .= '</ul>';
 		return $result;
 	}
@@ -339,7 +344,7 @@ function thumb_name($id)
 
 function reformat($line)
 {
-  global $para, $con, $days;
+  global $para;
 
   $replace_left = array(
       '/\{b(.*?)\}/s',
@@ -347,12 +352,7 @@ function reformat($line)
       '/\{q(.*?)\}/s',
       '/\{l(.*?)\}/s',
       '/\{r\}/s',
-      '/\{d (.*?)\}/se',
-      '/\{p(\d+?)\}/se',
-      '/\{c(\d+?) (.*?)\}/se',
-      '/\{t(\d+?)\}/se',
       '/\{smile(\d)\}/s',
-      '/\{t(\d+?)@(\d+?)\}/se',
   );
 
   $replace_right = array(
@@ -361,14 +361,7 @@ function reformat($line)
       '<li>$1</li>',
       '<ol>$1</ol>',
       '<br />',
-      '"<a name=\"day".array_push($days, "$1")."\"><span class=\"day\">$1</span></a>"',
-      '"<a href=\"/people.phtml?id=$1\">".$con->property("SELECT name FROM people WHERE id=$1")."</a>"',
-      '"<span class=\"comment\"><a href=\"/people.phtml?id=$1\">"'.
-         '.$con->property("SELECT name FROM people WHERE id=$1")."</a>: '.
-         '$2</span>"',
-      '"<a href=\"/travels.phtml?id=$1\">".$con->property("SELECT CONCAT(rivers.name,\" \'\",pohody.year) FROM pohody INNER JOIN rivers ON pohody.river=rivers.id WHERE pohody.id=$1")."</a>"',
       '<img src="/design/smile$1.gif" width="16" height="12">',
-      '"<a href=\"/travels.phtml?id=$1&doc=$2\">".$con->property("SELECT CONCAT(rivers.name,\" \'\",pohody.year) FROM pohody INNER JOIN rivers ON pohody.river=rivers.id WHERE pohody.id=$1")."</a>"',
   );
 
   $line = preg_replace($replace_left,$replace_right, $line);
@@ -376,14 +369,45 @@ function reformat($line)
   {
   	$para = (integer)$matches[1];
   	$line = preg_replace('/\{m(\d+)\}/','',$line);
-  }	
+  }
+
+  $line = preg_replace_callback_array([
+    '/\{t(\d+?)@(\d+?)\}/s' => function($matches) {
+      global $con;
+      return sprintf('<a href="/travels.php?id=%s&doc=%s">%s</a>',
+        $matches[1], $matches[2],
+        $con->property("SELECT CONCAT(rivers.name,\" '\",pohody.year) FROM pohody INNER JOIN rivers ON pohody.river=rivers.id WHERE pohody.id=".$matches[1]));
+    },
+    '/\{t(\d+?)\}/s' => function($matches) {
+      global $con;
+      return sprintf('<a href="/travels.php?id=%s">%s</a>',
+        $matches[1],
+        $con->property("SELECT CONCAT(rivers.name,\" '\",pohody.year) FROM pohody INNER JOIN rivers ON pohody.river=rivers.id WHERE pohody.id=".$matches[1]));
+    },
+    '/\{d (.*?)\}/s' => function($matches) {
+      global $days;
+      return sprintf('<a name="day%s"><span class="day">%s</span></a>', array_push($days, $matches[1]), $matches[1]);
+    },
+    '/\{p(\d+?)\}/s' => function($matches) {
+      global $con;
+      return sprintf('<a href="people.php?id=%s">%s</a>',
+        $matches[1], $con->property("SELECT name FROM people WHERE id=".$matches[1]));
+    },
+    '/\{c(\d+?) (.*?)\}/s' => function($matches) {
+      global $con; 
+
+      return sprintf('<span class="comment"><a href="/people.php?id=%s">%s</a>: %s</span>',
+        $matches[1], $con->property("SELECT name FROM people WHERE id=".$matches[1]), $matches[2]);
+    },
+  ], $line);
+
   return $line;
 }
 
 function reformat_author($id)
 {
   global $con;
-  return "<i>Автор дневника</i>: <a href=\"/people.phtml?id=$id\">".$con->property("SELECT name FROM people WHERE id=$id")."</a>";
+  return "<i>Автор дневника</i>: <a href=\"/people.php?id=$id\">".$con->property("SELECT name FROM people WHERE id=$id")."</a>";
 }
 
 function excerpt($text)
@@ -468,7 +492,7 @@ function show_gallery($photos, $url, $page)
   	  <img src="/images/<?=thumb_name($id)?>" width="<?=$info[1]?>"
   	         height="<?=$info[2]?>"><br><?=$info[0]?></a>
   	   <?=($info[3] ? ($info[0] ? " (" : "").
-  	        "<a href='/travels.phtml?id=$info[4]'>$info[3]</a>".
+  	        "<a href='/travels.php?id=$info[4]'>$info[3]</a>".
   	        ($info[0] ? ")" : '') : '')?></td><?php
   	if ($col == $gallery_w)
   		{ ?></tr><?php  $col = 0; }
@@ -572,12 +596,12 @@ function tmpl_index_pohody()
    $text = <<<EOF
 <table cols='2' rows='1' width='100%' cellspacing='0' cellpadding='0'>
 <tr><td width='{$pohody_list['width']}'>
-<a href='/pic.phtml?id={$pohody_list['id']}' target='_blank'>
+<a href='/pic.php?id={$pohody_list['id']}' target='_blank'>
 <img src='/images/$imgname' width='{$pohody_list['width']}' height='{$pohody_list['height']}'>
 </a>
 </td><td style='padding: 5px'>
 <p style='text-align: justify' class='nolink'>
-<a href='/travels.phtml?id=$pohody_id&doc={$pohody_list['doc_id']}'>$excerpt</a>
+<a href='/travels.php?id=$pohody_id&doc={$pohody_list['doc_id']}'>$excerpt</a>
 </p>
 </td></tr>
 </table>
@@ -606,12 +630,12 @@ function tmpl_index_rivers()
    $text = <<<EOF
 <table cols='2' rows='1' width='100%' cellspacing='0' cellpadding='0'>
 <tr><td width='{$rivers_list['width']}'>
-<a href='/pic.phtml?id={$rivers_list['id']}' target='_blank'>
+<a href='/pic.php?id={$rivers_list['id']}' target='_blank'>
 <img src='/images/$imgname' width='{$rivers_list['width']}' height='{$rivers_list['height']}'>
 </a>
 </td><td style='padding: 5px'>
 <p style='text-align: justify' class='nolink'>
-<a href='/rivers.phtml?id=$river_id'>$excerpt</a>
+<a href='/rivers.php?id=$river_id'>$excerpt</a>
 </p>
 </td></tr>
 </table>
@@ -629,7 +653,7 @@ function tmpl_index_people()
        "photos.id AS id, photos.thumb_width AS width, photos.thumb_height AS height FROM people ".
        "INNER JOIN photos ON photos.idman = people.id ORDER BY rand() LIMIT 0,1");
 
-   $text = "<div style='text-align: center'><a href='/people.phtml?id=".
+   $text = "<div style='text-align: center'><a href='/people.php?id=".
        "{$people_list['people_id']}'>".
        "<img src='/images/".thumb_name($people_list['id']).
        "' width='{$people_list['width']}' height='{$people_list['height']}'></a>".
@@ -686,7 +710,7 @@ function tmpl_diaries_list(&$descriptions, $desc_id, $travel_id)
 	   if ($desc_id == $id)
 	   	$result .= "<li><b>{$info[2]}</b></li>";
 	   else
-	   	$result .= "<li><a href='/travels.phtml?id=$travel_id&doc=$id'>{$info[2]}</a></li>";
+	   	$result .= "<li><a href='/travels.php?id=$travel_id&doc=$id'>{$info[2]}</a></li>";
 	$result .= '</ul>';
 	return $result;
 }
@@ -696,12 +720,12 @@ function reformat_book($line)
   $replace_left = array(
       '/\{/',
       '/\}/',
-      '/<header(\d)>(.*?)<\/header>/se',
+      // '/<header(\d)>(.*?)<\/header>/se',
       '/<line \/>/s',
       '/<b>(.*?)<\/b>/s',
       '/<i>(.*?)<\/i>/s',
       '/<img file="(.*?)" (.*?)\/>/s',
-      '/<page \/>/se',
+      // '/<page \/>/se',
       '/</s',
       '/>/s',
   );
@@ -709,12 +733,12 @@ function reformat_book($line)
   $replace_right = array(
       '',
       '',
-      '"{div class=\"header$1\"}{a name=\"".push_header($1,"$2")."\"}$2{/a}{/div}"',
+      //'"{div class=\"header$1\"}{a name=\"".push_header($1,"$2")."\"}$2{/a}{/div}"',
       '{br}',
       '{b}$1{/b}',
       '{i}$1{/i}',
       '{img src="/pics/$1" $2}',
-      'next_page()',
+      //'next_page()',
       '&lt;',
       '&gt;',
   );

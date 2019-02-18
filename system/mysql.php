@@ -48,14 +48,14 @@ class mysql_con {
 	// on first query but you can invoke it manually.
 
 	function connect() {
-		$this->con = @mysql_connect($this->host, $this->login, $this->password);
+		$this->con = mysqli_connect($this->host, $this->login, $this->password);
 		if (!$this->con) {
 			return false;
 		}
-		if (!@mysql_select_db($this->database, $this->con)) {
+		if (!@$this->con->select_db($this->database)) {
 			return false;
 		}
-		mysql_set_charset('cp1251', $this->con);
+		$this->con->set_charset('utf8');
 		return true;
 	}
 
@@ -63,7 +63,7 @@ class mysql_con {
 
 	function disconnect() {
 		if ($this->con) {
-			return @mysql_close($this->con);
+			return $this->con->close();
 		}
 		return false;
 	}
@@ -74,10 +74,7 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = mysql_query($sql, $this->con);
-		if ($res === false) return false;
-
-		return new mysql_res($res);
+	  return $this->con->query($sql);
 	}
 
 	function uquery ($sql) {
@@ -98,10 +95,10 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = mysql_query($sql, $this->con);
+		$res = $this->con->query($sql);
 		if ($res === false) return false;
-		$result = mysql_fetch_array($res);
-		mysql_free_result($res);
+		$result = $res->fetch_assoc();
+		$res->free();
 
 		return $result;
 	}
@@ -112,10 +109,10 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = mysql_query($sql, $this->con);
+		$res = mysqli_query($sql, $this->con);
 		if ($res === false) return false;
-		$result = mysql_fetch_assoc($res);
-		mysql_free_result($res);
+		$result = mysqli_fetch_assoc($res);
+		mysqli_free_result($res);
 
 		return $result;
 	}
@@ -126,36 +123,37 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$q = mysql_query($sql, $this->con);
-		if ($q === false) return false;
+    $res = $this->con->query($sql);
+    print $this->con->error;
+		if ($res === false) return false;
 		$result = array();
-		switch (mysql_num_fields($q))
+		switch ($res->field_count)
 		{
 		case 1:
-			while ($r = mysql_fetch_array($q))
+			while ($r = $res->fetch_array())
 				$result[] = $r[0];
 			break;
 		case 2:
 			if ($assoc)
 			{
-				while ($r = mysql_fetch_array($q))
+				while ($r = $res->fetch_array())
 					$result[$r[0]] = $r[1];
 				break;
 			}
 		// если нужен неассоциативный массив, идем дальше
 		default:
 			if ($assoc)
-				while ($r = mysql_fetch_array($q))
+				while ($r = $res->fetch_array())
 				{
 					$key = array_shift($r);
 					$result[$key] = $r;
 				}
 			else
-				while ($r = mysql_fetch_array($q))
+				while ($r = $res->fetch_array())
 					$result[] = $r;
 		}
 
-		mysql_free_result($q);
+		$res->free();
 		return $result;
 	}
 
@@ -165,10 +163,10 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = mysql_query($sql, $this->con);
+		$res = $this->con->query($sql);
 		if ($res === false) return false;
-		$result = @mysql_result($res, 0, 0);
-		mysql_free_result($res);
+		$result = $res->fetch_row()[0];
+		$res->free();
 
 		return $result;
 	}
@@ -177,7 +175,7 @@ class mysql_con {
 	{
 		if ($this->con === false)
 			$this->connect();
-		return mysql_query($sql, $this->con);
+		return mysqli_query($sql, $this->con);
 	}
 
 	function enum_tree($table, $fields, $order, $root = false, $recursive = true, $parent_id = "parent_id", $level = 0)
@@ -185,30 +183,29 @@ class mysql_con {
 		if ($this->con === false)
 			$this->connect();
 		$r = array();
-		$q = mysql_query("SELECT id, ".implode(", ", $fields)." FROM $table WHERE $parent_id ".($root===false?"IS NULL":"= $root")." ORDER BY $order", $this->con);
-		while ($row = mysql_fetch_array($q))
+		$q = mysqli_query("SELECT id, ".implode(", ", $fields)." FROM $table WHERE $parent_id ".($root===false?"IS NULL":"= $root")." ORDER BY $order", $this->con);
+		while ($row = mysqli_fetch_array($q))
 		{
 			$row["@level"] = $level;
 			$r[] = $row;
 			if ($recursive)
 				$r = array_merge($r, $this->enum_tree($table, $fields, $order, $row["id"], $recursive, $parent_id, $level+1));
 		}
-		mysql_free_result($q);
+		mysqli_free_result($q);
 		return $r;
 	}
 
 	function error () {
 		if ($this->con) {
-			return @mysql_error($this->con) . " (errno: " . @mysql_errno($this->con) . ")";
+			return @mysqli_error($this->con) . " (errno: " . @mysqli_errno($this->con) . ")";
 		}
 		else {
-			return @mysql_error() . " (errno: " . @mysql_errno() . ")";
+			return @mysqli_error() . " (errno: " . @mysqli_errno() . ")";
 		}
 	}
 
 	function safe_str ($str) {
-		//return addslashes($str);
-		return mysql_escape_string($str);
+		return mysqli_real_escape_string($str);
 	}
 
 	function set ($table, $fields, $id = false) {
@@ -222,14 +219,14 @@ class mysql_con {
 				$q .= ($i?", ":"")."$name = '".addslashes($value)."'";
 		if ($id !== false)
 			$q .= " WHERE id = $id";
-		if (!mysql_query($q, $this->con))
+		if (!mysqli_query($q, $this->con))
 		{
-			echo "$q: ".mysql_error($this->con);
+			echo "$q: ".mysqli_error($this->con);
 			return false;
 		}
 		else
 			if ($id === false)
-				return mysql_insert_id($this->con);
+				return mysqli_insert_id($this->con);
 			else
 				return $id;
 	}
@@ -243,8 +240,8 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = @mysql_query($query, $this->con);
-		return ($res === false ? false : mysql_insert_id($this->con));
+		$res = @mysqli_query($query, $this->con);
+		return ($res === false ? false : mysqli_insert_id($this->con));
 	}
 
 	// Calls on UPDATE query. Return number of rows affected on query.
@@ -256,8 +253,8 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = @mysql_query($query, $this->con);
-		return ($res === false ? false : mysql_affected_rows($this->con));
+		$res = @mysqli_query($query, $this->con);
+		return ($res === false ? false : mysqli_affected_rows($this->con));
 	}
 
 	// Calls on DELETE query. Return number of rows affected on query.
@@ -269,16 +266,16 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = @mysql_query($query, $this->con);
-		return ($res === false ? false : mysql_affected_rows($this->con));
+		$res = @mysqli_query($query, $this->con);
+		return ($res === false ? false : mysqli_affected_rows($this->con));
 	}
 
 	function last_insert_id () {
-		return mysql_insert_id($this->con);
+		return mysqli_insert_id($this->con);
 	}
 
 	function affected_rows () {
-		return mysql_affected_rows($this->con);
+		return mysqli_affected_rows($this->con);
 	}
 
 	function tmpl($template, $values)
@@ -310,35 +307,35 @@ class mysql_res {
 	}
 
 	function free () {
-		@mysql_free_result($this->res);
+		@mysqli_free_result($this->res);
 	}
 
 	function num_rows () {
-		return @mysql_num_rows($this->res);
+		return @mysqli_num_rows($this->res);
 	}
 
 	function fetch_row () {
-		return @mysql_fetch_row($this->res);
+		return @mysqli_fetch_row($this->res);
 	}
 
 	function fetch_array () {
-		return @mysql_fetch_array($this->res);
+		return @mysqli_fetch_array($this->res);
 	}
 
 	function result ($row, $col) {
-		return @mysql_result($this->res, $row, $col);
+		return @mysqli_result($this->res, $row, $col);
 	}
 
 	function num_fields () {
-		return @mysql_num_fields($this->res);
+		return @mysqli_num_fields($this->res);
 	}
 
 	function field_name ($col) {
-		return @mysql_field_name($this->res, $col);
+		return @mysqli_field_name($this->res, $col);
 	}
 
 	function seek ($row) {
-		return @mysql_data_seek($this->res, $row);
+		return @mysqli_data_seek($this->res, $row);
 	}
 
 }

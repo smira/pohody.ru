@@ -1,6 +1,6 @@
-<?
+<?php
 
-chdir($HTTP_SERVER_VARS["DOCUMENT_ROOT"]."/..");
+chdir($_SERVER["DOCUMENT_ROOT"]."/..");
 require('system/core.php');
 
 
@@ -40,7 +40,7 @@ function photos_body()
 	global $con, $s_photos_list, $s_by_pohod, $s_favourites;
 	?><h1><?=$s_photos_list?></h1>
 	<ul class='img2'>
-	<li><b><?=$s_by_pohod?></b>:<ul class='img'><?
+	<li><b><?=$s_by_pohod?></b>:<ul class='img'><?php
 	$query = <<<SQL
 SELECT pohody.id AS id, pohody.year AS year, rivers.name AS river,
 COUNT(photos.id) AS number FROM pohody INNER JOIN rivers ON
@@ -50,10 +50,10 @@ SQL;
  	$r = $con->query_list($query, false);
 	foreach ($r as $row)
 	{
-		?><li><a href='/photo.phtml?travel=<?=$row['id']?>'><?=$row['river']?> '<?=$row['year']?></a> (<?=$row['number']?>)</li><?
+		?><li><a href='/photo.php?travel=<?=$row['id']?>'><?=$row['river']?> '<?=$row['year']?></a> (<?=$row['number']?>)</li><?php
 	}
 	?></ul></li>
-	<li><b><?=$s_favourites?></b>:<ul class='img'><?
+	<li><b><?=$s_favourites?></b>:<ul class='img'><?php
 	$query = <<<SQL
 SELECT favorites.id AS id, favorites.name AS name, COUNT(fav_photos.id_photo) AS number FROM favorites
 INNER JOIN fav_photos ON favorites.id = fav_photos.id_fav GROUP BY fav_photos.id_fav
@@ -62,10 +62,10 @@ SQL;
 	$r = $con->query_list($query, false);
 	foreach ($r as $row)
 	{
-		?><li><a href='/photo.phtml?fav=<?=$row['id']?>'><?=htmlspecialchars($row['name'])?></a> (<?=$row['number']?>)</li><?
+		?><li><a href='/photo.php?fav=<?=$row['id']?>'><?=htmlspecialchars($row['name'])?></a> (<?=$row['number']?>)</li><?php
 	}
-	?></ul></li><?
-	?></ul><?
+	?></ul></li><?php
+	?></ul><?php
 }
 
 function travel_gallery()
@@ -75,7 +75,7 @@ function travel_gallery()
 	$photos = $con->query_list("SELECT id, description, thumb_width, thumb_height FROM ".
 	   "photos WHERE idpohod = $travel ORDER BY photos.order_", true);
 
-	show_gallery($photos, "/photo.phtml?travel=$travel", $page);
+	show_gallery($photos, "/photo.php?travel=$travel", $page);
 }
 
 function travel_photo()
@@ -85,7 +85,7 @@ function travel_photo()
 	$photos = $con->query_list("SELECT id, description, width, height FROM ".
 	   "photos WHERE idpohod = $travel ORDER BY photos.order_", true);
 
-	show_gallery_picture($photos, "/photo.phtml?travel=$travel", $page, $id);
+	show_gallery_picture($photos, "/photo.php?travel=$travel", $page, $id);
 }
 
 function fav_gallery()
@@ -102,7 +102,7 @@ INNER JOIN rivers ON rivers.id = pohody.river
 ORDER BY fav_photos.order_
 SQL;
 	$photos = $con->query_list($query,true);
-	show_gallery($photos, "/photo.phtml?fav=$fav", $page);
+	show_gallery($photos, "/photo.php?fav=$fav", $page);
 }
 
 function fav_photo()
@@ -113,7 +113,7 @@ function fav_photo()
 	    "FROM photos INNER JOIN fav_photos ON fav_photos.id_photo = photos.id ".
 	    "AND fav_photos.id_fav = $fav ORDER BY fav_photos.order_",true);
 
-	show_gallery_picture($photos, "/photo.phtml?fav=$fav", $page, $id);
+	show_gallery_picture($photos, "/photo.php?fav=$fav", $page, $id);
 }
 
 ?>

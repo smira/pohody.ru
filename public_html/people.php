@@ -1,7 +1,8 @@
-<?
+<?php
 
-chdir($HTTP_SERVER_VARS["DOCUMENT_ROOT"]."/..");
-require('system/core.php');
+
+chdir($_SERVER["DOCUMENT_ROOT"]."/..");
+require('./system/core.php');
 
 
 $id = nav_get('id', 'integer', -1);
@@ -19,33 +20,33 @@ else
 function people_body()
 {
 	global $con, $s_people_list;
-	?><h1><?=$s_people_list?></h1><?
+	?><h1><?=$s_people_list?></h1><?php
  	$r = $con->query("SELECT people.id, people.name FROM people ".
 	    "ORDER BY people.name");
-	?><ul class='img'><?
+	?><ul class='img'><?php
 	while ($row = $r->fetch_array())
 	{
-		?><li><a href='/people.phtml?id=<?=$row[0]?>'><?=$row[1]?></a><?
+		?><li><a href='/people.php?id=<?=$row[0]?>'><?=$row[1]?></a><?php
 	}
-	?></ul><?
+	?></ul><?php
 }
 
 function people_info()
 {
 	global $row, $s_info, $s_photo, $s_pohody_uch;
-	?><h1><?=$row['fullname']?></h1><?
-	?><table><tr valign='top'><td><?
+	?><h1><?=$row['fullname']?></h1><?php
+	?><table><tr valign='top'><td><?php
 	$info = tmpl_people_info($row);
 	if ($info != '')
 		block($s_info,$info,"100%");
-	?></td><td rowspan='2'><?
+	?></td><td rowspan='2'><?php
 	if ($row['photo'] > 0)
 		block($s_photo, "<img src='/images/".img_name($row['photo'])."' witdh='{$row['width']}' height='{$row['height']}' />","100%");
-	?></td></tr><tr><td><?
+	?></td></tr><tr><td><?php
 	$info = tmpl_people_pohody($row);
 	if ($info != '')
 		block($s_pohody_uch,$info,"100%");
-	?></td></tr></table><?
+	?></td></tr></table><?php
 }
 
 ?>
