@@ -19,8 +19,8 @@ $cache = array(
 	"/articles.php"	=> array("params"=>array("id"=>true, "page"=>true)),
 );
 
-if ($_SERVER["REMOTE_ADDR"] != "127.0.0.1")
-	cache_control($cache, true);
+//if ($_SERVER["REMOTE_ADDR"] != "127.0.0.1")
+//	cache_control($cache, true);
 
 
 $con = new mysql_con($mysql_options['database'], $mysql_options['user'],
