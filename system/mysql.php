@@ -77,18 +77,6 @@ class mysql_con {
 	  return $this->con->query($sql);
 	}
 
-	function uquery ($sql) {
-		if (!$this->con) {
-			$this->connect();
-			if (!$this->con) return false;
-		}
-
-		$res = mysql_unbuffered_query($sql, $this->con);
-		if ($res === false) return false;
-
-		return new mysql_res($res);
-	}
-
 	function qquery ($sql) {
 		if (!$this->con) {
 			$this->connect();
@@ -171,64 +159,10 @@ class mysql_con {
 		return $result;
 	}
 
-	function squery($sql)
-	{
-		if ($this->con === false)
-			$this->connect();
-		return mysqli_query($sql, $this->con);
-	}
-
-	function enum_tree($table, $fields, $order, $root = false, $recursive = true, $parent_id = "parent_id", $level = 0)
-	{
-		if ($this->con === false)
-			$this->connect();
-		$r = array();
-		$q = mysqli_query("SELECT id, ".implode(", ", $fields)." FROM $table WHERE $parent_id ".($root===false?"IS NULL":"= $root")." ORDER BY $order", $this->con);
-		while ($row = mysqli_fetch_array($q))
-		{
-			$row["@level"] = $level;
-			$r[] = $row;
-			if ($recursive)
-				$r = array_merge($r, $this->enum_tree($table, $fields, $order, $row["id"], $recursive, $parent_id, $level+1));
-		}
-		mysqli_free_result($q);
-		return $r;
-	}
-
-	function error () {
-		if ($this->con) {
-			return @mysqli_error($this->con) . " (errno: " . @mysqli_errno($this->con) . ")";
-		}
-		else {
-			return @mysqli_error() . " (errno: " . @mysqli_errno() . ")";
-		}
-	}
-
 	function safe_str ($str) {
-		return mysqli_real_escape_string($str);
-	}
-
-	function set ($table, $fields, $id = false) {
 		if ($this->con === false)
 			$this->connect();
-		$q = $id !== false ? "UPDATE $table SET " : "INSERT INTO $table SET ";
-		for ($i = 0; list($name, $value) = each($fields); $i++)
-			if ($value === false)
-				$q .= ($i?", ":"")."$name = NULL";
-			else
-				$q .= ($i?", ":"")."$name = '".addslashes($value)."'";
-		if ($id !== false)
-			$q .= " WHERE id = $id";
-		if (!mysqli_query($q, $this->con))
-		{
-			echo "$q: ".mysqli_error($this->con);
-			return false;
-		}
-		else
-			if ($id === false)
-				return mysqli_insert_id($this->con);
-			else
-				return $id;
+		return mysqli_real_escape_string($this->con, $str);
 	}
 
 	// Calls on INSERT query. Return last inserted id if any.
@@ -240,7 +174,7 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = @mysqli_query($query, $this->con);
+		$res = $this->con->query($query);
 		return ($res === false ? false : mysqli_insert_id($this->con));
 	}
 
@@ -253,7 +187,7 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = @mysqli_query($query, $this->con);
+		$res = $this->con->query($query);
 		return ($res === false ? false : mysqli_affected_rows($this->con));
 	}
 
@@ -266,7 +200,7 @@ class mysql_con {
 			if (!$this->con) return false;
 		}
 
-		$res = @mysqli_query($query, $this->con);
+		$res = $this->con->query($query);
 		return ($res === false ? false : mysqli_affected_rows($this->con));
 	}
 
@@ -278,67 +212,8 @@ class mysql_con {
 		return mysqli_affected_rows($this->con);
 	}
 
-	function tmpl($template, $values)
-	{
-		for (reset($values); list($key, $value) = each($values);)
-			if ($value === false)
-			{
-				$template = str_replace("'#$key#'", "NULL", $template);
-				$template = str_replace("#$key#", "", $template);
-			}
-			else
-				$template = str_replace("#$key#", addslashes($value), $template);
-		return $template;
-	}
-
 }
 
-// MySQL result class
-
-class mysql_res {
-	var $res;
-
-	function mysql_res ($res) {
-		if (!$res) {
-			$res = NULL;
-			return false;
-		}
-		$this->res = $res;
-	}
-
-	function free () {
-		@mysqli_free_result($this->res);
-	}
-
-	function num_rows () {
-		return @mysqli_num_rows($this->res);
-	}
-
-	function fetch_row () {
-		return @mysqli_fetch_row($this->res);
-	}
-
-	function fetch_array () {
-		return @mysqli_fetch_array($this->res);
-	}
-
-	function result ($row, $col) {
-		return @mysqli_result($this->res, $row, $col);
-	}
-
-	function num_fields () {
-		return @mysqli_num_fields($this->res);
-	}
-
-	function field_name ($col) {
-		return @mysqli_field_name($this->res, $col);
-	}
-
-	function seek ($row) {
-		return @mysqli_data_seek($this->res, $row);
-	}
-
-}
 
 // MySQL query class
 

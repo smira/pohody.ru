@@ -1,4 +1,4 @@
-<?
+<?php
 
 chdir($_SERVER["DOCUMENT_ROOT"]."/..");
 
@@ -535,4 +535,3 @@ $admin = array(
 admin_html();
 
 
-?>

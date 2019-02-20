@@ -720,30 +720,30 @@ function reformat_book($line)
   $replace_left = array(
       '/\{/',
       '/\}/',
-      // '/<header(\d)>(.*?)<\/header>/se',
       '/<line \/>/s',
       '/<b>(.*?)<\/b>/s',
       '/<i>(.*?)<\/i>/s',
       '/<img file="(.*?)" (.*?)\/>/s',
-      // '/<page \/>/se',
-      '/</s',
-      '/>/s',
   );
 
   $replace_right = array(
       '',
       '',
-      //'"{div class=\"header$1\"}{a name=\"".push_header($1,"$2")."\"}$2{/a}{/div}"',
       '{br}',
       '{b}$1{/b}',
       '{i}$1{/i}',
       '{img src="/pics/$1" $2}',
-      //'next_page()',
-      '&lt;',
-      '&gt;',
   );
 
   $line = preg_replace($replace_left, $replace_right, $line);
+  $line = preg_replace_callback_array([
+    '/<header(\d)>(.*?)<\/header>/s' => function($matches) {
+      return sprintf('{div class="header%s"}{a name="%s"}%s{/a}{/div}',
+        $matches[1], push_header($matches[1], $matches[2]),  $matches[2]);
+    },
+    '/<page \/>/s' => function($matches) { return next_page(); },
+  ], $line);
+  $line = preg_replace(array('/</','/>/'), array('&lt;','&gt;'), $line);
   $line = preg_replace(array('/\{/','/\}/'), array('<','>'), $line);
   return $line;
 }

@@ -16,7 +16,7 @@ $form_null_key = "__null_";
 
 /**
  * form_create()
- * Функция обрабатывает описание формы и значения из трех источников - $HTTP_POST_VARS,
+ * Функция обрабатывает описание формы и значения из трех источников - $_POST,
  * $remote_data, $fields[$i]["default"]. На выходе дает html-тэги для всех полей ($html),
  * значения полей ($values), сообщения об ошибках ($errors) и тэг <form ...> ($form_tag).
  * @param $fields ассоциативный массив описаний полей формы;
@@ -57,7 +57,7 @@ $form_null_key = "__null_";
  * @param $form_tag <form .....>
  * @return true, если форма отправлена и не содержит ни одной ошибки; иначе - false
  */
-function form_create($fields, $url, $fname, $extra, $remote_data, &$html, &$values, &$errors, &$form_tag)
+function form_create(&$fields, $url, $fname, $extra, &$remote_data, &$html, &$values, &$errors, &$form_tag)
 {
 	global $form_signature;
 	
@@ -87,9 +87,9 @@ function form_create($fields, $url, $fname, $extra, $remote_data, &$html, &$valu
 		{
 			$value = $values[$name] = form_generate_value($val, $name, $remote_data, $is_sent, $errors);
 			$html[$name] = form_generate_field($val, $name, $value, $errors);
-			if ($is_sent && $error = form_check_rules(&$val, $value))
+			if ($is_sent && $error = form_check_rules($val, $value))
 				$errors[$name] = $error;
-			$form_tag .= form_generate_rule_check(&$val, $name);
+			$form_tag .= form_generate_rule_check($val, $name);
 		}
 
 	$form_tag .= "}\n";
@@ -100,14 +100,14 @@ function form_create($fields, $url, $fname, $extra, $remote_data, &$html, &$valu
 
 /**
  * form_is_sent()
- * Проверяет, содержит ли $HTTP_POST_VARS данные о форме form_name.
+ * Проверяет, содержит ли $_POST данные о форме form_name.
  * @param $form_name название формы
  * @return true, если содержит, иначе false
  */
 function form_is_sent($form_name)
 {
-	global $HTTP_POST_VARS, $form_signature;
-	if (isset($HTTP_POST_VARS[$form_name."-".$form_signature])) return true;
+	global $_POST, $form_signature;
+	if (isset($_POST[$form_name."-".$form_signature])) return true;
 	return false;
 }
 
@@ -414,36 +414,36 @@ function form_generate_rule_check($field, $name)
  */
 function form_generate_value($field, $name, $remote_data, $isset)
 {
-	global $HTTP_POST_VARS, $HTTP_POST_FILES, $form_signature, $form_null_key;
+	global $_POST, $form_signature, $form_null_key;
 
 	if ($isset && !$field['disabled'])
 		switch ($field["type"])
 		{
 		case "bit":
-			return $HTTP_POST_VARS[$name]?1:0;
+			return $_POST[$name]?1:0;
 		case "date":
-			$y = &$HTTP_POST_VARS[$name."-y"];
-			$m = &$HTTP_POST_VARS[$name."-m"];
-			$d = &$HTTP_POST_VARS[$name."-d"];
+			$y = &$_POST[$name."-y"];
+			$m = &$_POST[$name."-m"];
+			$d = &$_POST[$name."-d"];
 			if ($y == $form_null_key || $m == $form_null_key || $d == $form_null_key)
 				return false;
 			return sprintf("%04d-%02d-%02d", $y, $m, $d);
 		case "select":
 			if ($field['multiple'])
 				$name = str_replace('[]', '', $name);
-			return $HTTP_POST_VARS[$name]!=$form_null_key?$HTTP_POST_VARS[$name]:false;
+			return $_POST[$name]!=$form_null_key?$_POST[$name]:false;
 		case "checks":
 			$r = array();
 			if ($field["checks_zeroes"])
 				foreach($field["elements"] as $key=>$value)
-					$r[$key] = $HTTP_POST_VARS[$name."-".$key]?true:false;
+					$r[$key] = $_POST[$name."-".$key]?true:false;
 			else
 				foreach($field["elements"] as $key=>$value)
-					if ($HTTP_POST_VARS[$name."-".$key])
+					if ($_POST[$name."-".$key])
 						$r[$key] = true;
 			return $r;
 		default:
-			return $HTTP_POST_VARS[$name]!=""?$HTTP_POST_VARS[$name]:false;
+			return $_POST[$name]!=""?$_POST[$name]:false;
 		}
 
 	if (isset($remote_data[$name]))

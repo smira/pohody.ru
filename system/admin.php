@@ -1,10 +1,10 @@
-<?
+<?php
 
 session_start();
 
 function admin_html()
 {
-     global $admin, $site_title, $HTTP_SESSION_VARS, $section_list, $section, $default_section;
+     global $admin, $site_title, $_SESSION, $section_list, $section, $default_section;
      
      $section = nav_get_list('section', array_keys($admin['sections']), $default_section, true);
 	
@@ -26,7 +26,7 @@ function admin_html()
 <link rel="stylesheet" type="text/css" href="/admin/admin.css" />
 <script src="/admin/admin.js" type="text/javascript" language="javascript"></script></head>
 <body>
-<?
+<?php
    if (!admin_authorized())
    {
    	admin_auth_form();
@@ -60,7 +60,7 @@ function admin_html()
 ?>
 </body>
 </html>
-<?
+<?php
 }
 
 /////////////////////////////////////////////////
@@ -69,8 +69,8 @@ function admin_html()
 
 function admin_authorized()
 {
-   global $HTTP_SESSION_VARS;
-   return $HTTP_SESSION_VARS['uid'] > 0;
+   global $_SESSION;
+   return $_SESSION['uid'] > 0;
 }
 
 function admin_auth_form()
@@ -86,7 +86,7 @@ function admin_auth_form()
 </table>
 </center>
 </form>
-<?
+<?php
 }
  
 function admin_authorize()
@@ -99,7 +99,7 @@ function admin_authorize()
    	return;
    $_SESSION['uid'] = $result['id'];
    $_SESSION['user'] = $result['name'];
-   $priv_ = split(' ', $result['priv']);
+   $priv_ = explode(' ', $result['priv']);
    foreach ($priv_ as $p)
    	$priv[$p] = true;
    $_SESSION['priv'] = $priv;
@@ -155,12 +155,12 @@ function admin_main_content($section)
         <form name='header' method='get' action='/admin/' id='section_form'>
           <b>Раздел:</b>
          <select name='section' onchange='document.forms["section_form"].submit()'>
-            <?
+            <?php
                foreach($admin['sections'] as $name => $info)
                {
                    if (!in_array($name, $section_list))
                    	continue;
-                   ?><option value='<?=$name?>' <?=$name==$section?'selected':''?> ><?=$info['title']?></option><?
+                   ?><option value='<?=$name?>' <?=$name==$section?'selected':''?> ><?=$info['title']?></option><?php
                }
             ?>
          </select>
@@ -176,7 +176,7 @@ function admin_main_content($section)
   </table>
 </td></tr>
 <!-- конец заголовка -->
-<?
+<?php
 	if ($admin['sections'][$section]['dialog'])
 	{
 		$admin['sections'][$section]['dialog']();
@@ -188,33 +188,33 @@ function admin_main_content($section)
 <tr><td>
    <form name='table' style='margin: 0px'>
    <table cellspacing='0' width='100%' class='table'>
-     <? admin_prepare_field_map($admin['views'][$view]); ?> 
+     <?php admin_prepare_field_map($admin['views'][$view]); ?> 
 <!-- хедер текущего view (заголовок таблицы) -->
-     <? admin_view_header($admin['views'][$view]); ?>
+     <?php admin_view_header($admin['views'][$view]); ?>
 <!-- конец хедера -->
 <!-- содержимое таблицы -->
-     <? admin_show_sql($admin['views'][$view], admin_build_sql($admin['views'][$view])) ?>
+     <?php admin_show_sql($admin['views'][$view], admin_build_sql($admin['views'][$view])) ?>
 <!-- конец содержимого таблицы -->
 <!-- футер текущего view (статистика, прокрутка?) -->
-     <? $static ? 1 : admin_view_footer($admin['views'][$view]); ?>
+     <?php $static ? 1 : admin_view_footer($admin['views'][$view]); ?>
 <!-- конец футера -->
 <!-- строка с кнопками действий -->
-     <? $static ? 1 : admin_buttons($admin['views'][$view]); ?>
+     <?php $static ? 1 : admin_buttons($admin['views'][$view]); ?>
 <!-- конец строки с кнопками действий -->
    </table>
    </form>
 <!-- фильтр -->
 <tr><td>
-   <? if (count($admin['views'][$view]['filters']) > 0) admin_filter_show($section); ?>
+   <?php if (count($admin['views'][$view]['filters']) > 0) admin_filter_show($section); ?>
 </td></tr>
 <!-- конец фильтра -->
 </td></tr>
 <!-- конец view -->
-<?
+<?php
 	}
 ?>
 </table>
-<?
+<?php
 }
 
 function admin_prepare_field_map($view)
@@ -230,11 +230,11 @@ function admin_view_header($view)
 {
 	global $admin, $field_map;
 
-?><tr><?
-        ?><th width='20'><a href='<?=nav_link(array('sort' => false, 'asc' => false ))?>'>б/с</a></th><?
+?><tr><?php
+        ?><th width='20'><a href='<?=nav_link(array('sort' => false, 'asc' => false ))?>'>б/с</a></th><?php
 	foreach ($field_map as $name => $field)
 		admin_view_header_field($name, $view, $admin['fields'][$field]);
-?></tr><?
+?></tr><?php
 }
 
 function admin_view_header_field($name, $view, $field)
@@ -243,7 +243,7 @@ function admin_view_header_field($name, $view, $field)
   ?><th width='<?=$view['widths'][$name]?>'>
       <a href='<?=nav_link(array('sort' => $name, 'asc' => (integer)($name != $sort ? 1 : !$asc) ))?>'>
          <?=htmlspecialchars($field['title'])?></a><span class='order'><?=($name == $sort ? ($asc ? 'H':'G') : '' )?></span>
-  </th><?
+  </th><?php
 }
 
 function admin_show_sql($view, $query)
@@ -260,15 +260,15 @@ function admin_show_sql($view, $query)
 	{
 	    ?><tr  onmouseover="setPointer(this, 'over', '<?=$row_inactive?>', '<?=$row_active?>', '<?=$row_active?>')"
 	           onmouseout="setPointer(this, 'out',  '<?=$row_inactive?>', '<?=$row_active?>', '<?=$row_active?>')"
-	           ><?
-	    ?><td bgcolor="<?=$row_inactive?>"><input type='checkbox' name='row<?=++$num_rows?>' value="<?=htmlspecialchars($row[$view['primary']])?>"></td><?
+	           ><?php
+	    ?><td bgcolor="<?=$row_inactive?>"><input type='checkbox' name='row<?=++$num_rows?>' value="<?=htmlspecialchars($row[$view['primary']])?>"></td><?php
             admin_lookup_fields($row, $view);
 	    $rowstyle = $view['rowstyler']  ? $view['rowstyler']($row) : '';
 	    foreach ($field_map as $name => $field)
 	    {
 		admin_print_field($row[$name],$admin['fields'][$field], $rowstyle);
 	    }
-	    ?></tr><?
+	    ?></tr><?php
 	}
 }
 
@@ -285,46 +285,46 @@ function admin_print_field($value, $field, $rowstyle='')
 	?>
 	<td <?=$field['align']?'align="'.$field['align'].'"':''?> onmousedown="document.forms.table.row<?=$num_rows?>.checked = !document.forms.table.row<?=$num_rows?>.checked" bgcolor="<?=$row_inactive?>" <?=$rowstyle?>>
 	  <?=$value?>
-	  <?
+	  <?php
 		if ($field['alias_buttons'])
 			admin_print_alias_buttons($row);
 	  ?>
         </td>
-        <?
+        <?php
 }
 
 function admin_print_alias_buttons(&$row)
 {
-	?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?
+	?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php
 	echo admin_button('Алиас <->', nav_link(array('action' => 'alias', 'kind' => 'swap', 'from' => false, 'limit' => false,
 					   'id' => $row['id'])), true);
-	?>&nbsp;&nbsp;&nbsp;<?
+	?>&nbsp;&nbsp;&nbsp;<?php
 	echo admin_button('Алиас +-The', nav_link(array('action' => 'alias', 'kind' => 'the', 'from' => false, 'limit' => false,
 					   'id' => $row['id'])), true);
 }
 
 function admin_view_footer($view)
 {
-	global $admin, $from, $num_rows, $overall_rows, $field_map, $section, $HTTP_SESSION_VARS;
-	$filter = $HTTP_SESSION_VARS['filter'][$section];
-	?><tr><th>&nbsp;</th><?
+	global $admin, $from, $num_rows, $overall_rows, $field_map, $section, $_SESSION;
+	$filter = $_SESSION['filter'][$section];
+	?><tr><th>&nbsp;</th><?php
 	?><th align='left' colspan='<?=count($field_map)?>'>Показаны записи с <?=$from+1?> по <?=$from+$num_rows?> (из <?=$overall_rows?>)
-	  <? if (count($filter) > 0): ?> (+фильтр+) <? endif; ?>
-	</th><?
-	?></tr><?
+	  <?php if (count($filter) > 0): ?> (+фильтр+) <?php endif; ?>
+	</th><?php
+	?></tr><?php
 }
 
 function admin_buttons($view)
 {
-	global $overall_rows, $from, $limit, $section, $field_map, $HTTP_SESSION_VARS;
+	global $overall_rows, $from, $limit, $section, $field_map, $_SESSION;
 	$last_page = max(0,floor(($overall_rows-1) / $limit) * $limit);
-	?><tr><td class='buttons' colspan='<?=count($field_map)+1?>'><table border='0' cellspacing='0' cellpadding='0' width='100%' class='buttons'><tr><?
-	?><td class='buttons'  style='text-align: left'><?
+	?><tr><td class='buttons' colspan='<?=count($field_map)+1?>'><table border='0' cellspacing='0' cellpadding='0' width='100%' class='buttons'><tr><?php
+	?><td class='buttons'  style='text-align: left'><?php
 	echo admin_button("<<", nav_link(array('from' => 0)));
 	echo "&nbsp;";
 	if ($from > 0)
 		echo admin_button("<", nav_link(array('from' => max(0,$from-$limit))));
-        ?></td><td class='buttons'><?
+        ?></td><td class='buttons'><?php
          echo admin_button("Добавить", nav_link(array('action'=>'add','from'=>false,'limit'=>false)), true);
   	 echo "&nbsp;";
          echo admin_button("Изменить", nav_link(array('action'=>'edit','from'=>false,'limit'=>false)), true, 'prepareEdit');
@@ -351,7 +351,7 @@ function admin_buttons($view)
                		echo admin_button($title,  nav_link(array('action'=>'special_'.$action,'from'=>false,'limit'=>false)), true, 'prepareMulti');
 	         echo "&nbsp;";
 	 }
-	?></td><td class='buttons' style='text-align: right'><?
+	?></td><td class='buttons' style='text-align: right'><?php
 	if(isset($view['def_rows_count']))
 	{
 			echo "&nbsp;";
@@ -365,7 +365,7 @@ function admin_buttons($view)
 				theURL = obj.options[obj.selectedIndex].value; 
     		if (theURL) {	window.location = theURL;	}
     	}</SCRIPT>
-    	<?
+    	<?php
 		if(is_array($ch_list))
 		{
 			echo "Количество строк: <select onChange='onChangeRowsCount(this);'>";
@@ -390,8 +390,8 @@ function admin_buttons($view)
 		echo admin_button(">", nav_link(array('from' => min($last_page,$from+$limit))));
 	echo "&nbsp;";
 	echo admin_button(">>", nav_link(array('from' => $last_page)));
-	?></td><?
-	?></tr></table></td></tr><?
+	?></td><?php
+	?></tr></table></td></tr><?php
 }
 
 function admin_button($text, $url, $newwindow = false, $func = false)
@@ -444,9 +444,9 @@ function admin_quote_field($field)
 
 function admin_build_filter_where($view)
 {
-	global $admin, $HTTP_SESSION_VARS, $section;
+	global $admin, $_SESSION, $section;
 
-	$filter = $HTTP_SESSION_VARS['filter'][$section];
+	$filter = $_SESSION['filter'][$section];
 	if ($filter && count($filter) > 0)
 	{
 	       return ' WHERE '.join(' AND ',admin_condition(array_map('mysql_escape_string', $filter), $view));
@@ -457,7 +457,7 @@ function admin_build_filter_where($view)
 
 function admin_build_sql($view)
 {
-	global $admin, $from, $limit, $sort, $asc, $primary, $HTTP_SESSION_VARS, $section;
+	global $admin, $from, $limit, $sort, $asc, $primary, $_SESSION, $section;
 	
 	if ($view['static'])
 		$query = $view['sql'];
@@ -477,8 +477,8 @@ function admin_build_sql($view)
 
 function admin_build_count_sql($view)
 {
-	global $admin, $from, $limit, $sort, $asc, $primary, $HTTP_SESSION_VARS, $section;
-	$filter = $HTTP_SESSION_VARS['filter'][$section];
+	global $admin, $from, $limit, $sort, $asc, $primary, $_SESSION, $section;
+	$filter = $_SESSION['filter'][$section];
 	return "SELECT COUNT(*) FROM {$view['table']}".
 	         ($primary ? " WHERE {$view['primary']} = '$primary'" :
 	            admin_build_filter_where($view));
@@ -628,7 +628,7 @@ function admin_modify($action, $section)
 		$remote = $_SESSION['filter'][$section];
 	}
 	$form = admin_prepare_form($edit, $admin['views'][$view]);
-        if (form_create(&$form, false, "admin", "", &$remote, &$html, &$values, &$errors, &$form_tag))
+        if (form_create($form, false, "admin", "", $remote, $html, $values, $errors, $form_tag))
         {
         	// форма уже запощена
         	admin_process_post($edit, $admin['views'][$view], $values);
@@ -703,36 +703,36 @@ function admin_show_form($edit, $section, $form, $view, $html, $values, $errors,
 		echo $html["__primary__"];
 	if ($action == 'filter' || $filter)
 	{
-		?><h1>Фильтр</h1><?
+		?><h1>Фильтр</h1><?php
 	}
 	else
 	{
-		?><h1><?=htmlspecialchars($admin['sections'][$section]['title'])?></h1><?
+		?><h1><?=htmlspecialchars($admin['sections'][$section]['title'])?></h1><?php
 	}
-	?><table class='form' cellspacing='0' cellpadding='2' width='100%' border='0'><?
+	?><table class='form' cellspacing='0' cellpadding='2' width='100%' border='0'><?php
 	foreach($form as $field => $field_desc)
 	{
 		if ($field == '__primary__')
 			continue;
-		?><tr class='caption'><td colspan='3' align='left'><?=htmlspecialchars($field_desc['title'])?></td></tr><?
+		?><tr class='caption'><td colspan='3' align='left'><?=htmlspecialchars($field_desc['title'])?></td></tr><?php
 		?><tr class='edit'><td width='50'>&nbsp;</td><td><?=$html[$field]?>
-		   <?if ($form[$field]['type'] == 'hidden') echo htmlspecialchars($values[$field]); ?>
-		</td><td class='error'><?=$errors[$field]?></td><?
+		   <?php if ($form[$field]['type'] == 'hidden') echo htmlspecialchars($values[$field]); ?>
+		</td><td class='error'><?=$errors[$field]?></td><?php
 	}
 	if ($filter)
 	{
 	  ?><tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'>
 	  <input type='submit' value='Фильтр' style='width: 120px'>
           <input type='button' value='Убрать фильтр' style='width: 120px' onClick='document.location = "?section=<?=$section?>&delfilter=1"'> 
-	  </td></tr><?
+	  </td></tr><?php
 	}
 	else
 	{
 	  ?><tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'><input type='submit' value='<?=$edit?'Сохранить':'Добавить'?>'>
           <input type='button' value='Отмена' onclick='window.close()'> 
-	  </td></tr><?
+	  </td></tr><?php
 	}
-	?></table></form><?
+	?></table></form><?php
 }
 
 function admin_process_post($edit, $view, $values)
@@ -743,7 +743,7 @@ function admin_process_post($edit, $view, $values)
 	if ($edit)
 		$primary = $values["__primary__"];
 	else
-		$primary = @mysql_insert_id();
+		$primary = $result;
 	if ($result === false)
 		std_error("Ошибка при исполнении запроса $queries[0] ".$con->error());
 	for ($i = 1; $i < count($queries); $i++)
@@ -757,7 +757,7 @@ function admin_process_post($edit, $view, $values)
 			window.opener.location.reload();
 			window.close();
 		</script>
-	<?
+	<?php
 }
 
 function admin_prepare_remote($view)
@@ -792,7 +792,7 @@ function admin_delete($section)
 {
 	global $primary, $admin, $con;
 	$primary = nav_get('primary', 'array');
-	$primary = array_map("mysql_escape_string", $primary);
+	$primary = array_map($con->safe_str, $primary);
 	$view = $admin['sections'][$section]['view'];
 	$queries = admin_build_delete($admin['views'][$view]);
 	foreach ($queries as $query)
@@ -806,7 +806,7 @@ function admin_delete($section)
 			window.opener.location.reload();
 			window.close();
 		</script>
-	<?
+	<?php
 	exit();
 }
 
@@ -816,7 +816,7 @@ function admin_delete($section)
 
 function admin_goto($section)
 {
-	global $admin, $con, $HTTP_SESSION_VARS;
+	global $admin, $con, $_SESSION;
         $primary = nav_get('primary', 'string');
 	$view = $admin['views'][$admin['sections'][$section]['view']];
 	$link = nav_get('link', 'string', false);
@@ -835,7 +835,7 @@ function admin_goto($section)
 		window.opener.location = '?section=<?=$goto['section']?>';
 		window.close();
 	</script>
-	<?
+	<?php
 	exit();
 }
 
@@ -847,48 +847,48 @@ function admin_goto($section)
 
 function admin_filter_process($section)
 {
-	global $admin, $con, $HTTP_SESSION_VARS;
+	global $admin, $con, $_SESSION;
 	if ($_GET['delfilter'])
 	{
-		$HTTP_SESSION_VARS['filter'][$section] = array();	
+		$_SESSION['filter'][$section] = array();	
 		std_redirect(nav_link(array('delfilter' => false)));
 	}
 	$view = $admin['sections'][$section]['view'];
 	if (!$view['filters'])
 		return;
-	$remote = $HTTP_SESSION_VARS['filter'][$section];
+	$remote = $_SESSION['filter'][$section];
 	$form = admin_prepare_filter_form($admin['views'][$view]);
-        if (form_create(&$form, false, "filter", "", &$remote, &$html, &$values, &$errors, &$form_tag))
+        if (form_create($form, false, "filter", "", $remote, $html, $values, $errors, $form_tag))
         {
         	// форма уже запощена
         	foreach ($values as $name => $value)
         		if ($value === '' || $value === false || $value === null)
         			unset($values[$name]);
-        	$HTTP_SESSION_VARS['filter'][$section] = $values;
+        	$_SESSION['filter'][$section] = $values;
 		std_redirect(nav_link(array('x' => rand())));
         }
 }
 
 function admin_filter_show($section)
 {
-	global $admin, $con, $HTTP_SESSION_VARS;
+	global $admin, $con, $_SESSION;
 	$view = $admin['sections'][$section]['view'];
-	$remote = $HTTP_SESSION_VARS['filter'][$section];
+	$remote = $_SESSION['filter'][$section];
 	$form = admin_prepare_filter_form($admin['views'][$view]);
-        form_create(&$form, false, "filter", "", &$remote, &$html, &$values, &$errors, &$form_tag);
+        form_create($form, false, "filter", "", $remote, $html, $values, $errors, $form_tag);
        	admin_show_form(true, $section, $form, $admin['views'][$view], $html, $values, $errors, $form_tag, true);
 }
 
 function admin_delfilter($section)
 {
-	global $admin, $con, $HTTP_SESSION_VARS;
-        $HTTP_SESSION_VARS['filter'][$section] = array();
+	global $admin, $con, $_SESSION;
+        $_SESSION['filter'][$section] = array();
 	?>
 	<script language='JavaScript'>
 		window.opener.location.reload();
 		window.close();
 	</script>
-	<?
+	<?php
 	exit();
 }
 
@@ -937,61 +937,6 @@ function admin_prepare_filter_form($view)
 	}
 	return $form;
 }
-
-///////////////////////////////////////////////////
-// Алиасы
-///////////////////////////////////////////////////
-
-function admin_make_alias($section)
-{
-	global $con;
-
-	$id = nav_get('id', 'integer', 0);
-	$kind = nav_get('kind', 'string', '');
-	if (!$id || !$kind)
-		return;
-	
-	$info = $con->qquery("SELECT * FROM t_artist_list WHERE id = $id");
-	switch ($kind)
-	{
-		case 'swap' :
-			$alias = join(' ', array_reverse(split(' ', $info['ARTIST_NAME'])));
-			break;
-		case 'the' :
-			if (preg_match('/^The /', $info['ARTIST_NAME']))
-				$alias = preg_replace('/^The /', '', $info['ARTIST_NAME']);
-			else
-				$alias = 'The '.$info['ARTIST_NAME'];
-			break;
-		default:
-			return;
-	}
-
-	if ($con->property("SELECT id FROM t_artist_list WHERE artist_name = '".$con->safe_str($alias)."'"))
-	{
-		?>Такой исполнитель уже есть!<?
-		die;
-	}
-
-	if ($con->property("SELECT id FROM t_alias_list WHERE artist_name = '".$con->safe_str($alias)."'"))
-	{
-		?>Такой алиас уже есть!<?
-		die;
-	}
-	
-	$con->insert("INSERT INTO t_alias_list SET ".
-		     "artist_id = $id, ".
-		     "artist_name = '".$con->safe_str($alias)."', ".
-		     "rus = {$info['RUS']}, ".
-		     "genre_id = {$info['GENRE_ID']}, ".
-		     "artist_rating = {$info['ARTIST_RATING']}, ".
-		     "artist_titles = {$info['ARTIST_TITLES']}, ".
-		     "artist_albums = {$info['ARTIST_ALBUMS']}");
-
-
-	?><script>window.close();</script><?
-}
-
 
 ///////////////////////////////////////////////////
 // Функции форматирования
@@ -1045,33 +990,6 @@ function br2nl($text)
 	          str_replace("<br />\r", "", $text))));
 }
 
-function rowstyler_adv_banner(&$row)
-{
-	$today = date('Y-m-d H:m:s');
-	return ($row['validfromdate'] <= $today && $today <= $row['validtodate']) ? "style='font-weight: bolder'" : '';
-}
-
-function rowstyler_t_users(&$row)
-{
-	global $con;
-
-	if ($con->property("SELECT balance FROM acc_balance WHERE user_id = {$row['id']}") > 0)
-		$style = 'VIP';
-	else if ($row['mp3key_encoded'])
-		$style = 'Priv';
-	else
-		$style = 'Basic';
-	$colors = array(
-		'VIP' => '#ff0000',
-		'Priv' => '#007f00',
-		'Basic' => '#000000',
-		       );
-	if ($style)
-		return "style='color: {$colors[$style]}'";
-	else
-		return '';
-}
-
 function admin_special_disable($section)
 {
 	admin_special_hideunhide($section, '', '_save');
@@ -1082,78 +1000,4 @@ function admin_special_enable($section)
 	admin_special_hideunhide($section, '_save', '');
 }
 
-function admin_special_hideunhide($section, $postfix1, $postfix2)
-{
-	global $con;
 
-	$primary = nav_get('primary', 'array');
-	foreach ($primary as $album_id)
-	{
-	 	$title_ids = $con->query_list("SELECT id FROM t_title_list$postfix1 WHERE album_id = $album_id");
-	
-		$con->insert("INSERT INTO t_album_list$postfix2 SELECT * FROM t_album_list$postfix1 WHERE id = $album_id");
-		$con->insert("INSERT INTO t_title_list$postfix2 SELECT * FROM t_title_list$postfix1 WHERE album_id = $album_id");
-		$con->insert("INSERT INTO t_filepath_list$postfix2 SELECT * FROM t_filepath_list$postfix1 WHERE file_id IN (".join(', ', $title_ids).")");
-		$con->insert("INSERT INTO t_text_list$postfix2 SELECT * FROM t_text_list$postfix1 WHERE title_id IN (".join(', ', $title_ids).")");
-
-		$con->delete("DELETE FROM t_top WHERE title_id IN (".join(', ', $title_ids).")");
-		$con->delete("DELETE FROM t_album_list$postfix1 WHERE id = $album_id");
-		$con->delete("DELETE FROM t_title_list$postfix1 WHERE album_id = $album_id");
-		$con->delete("DELETE FROM t_filepath_list$postfix1 WHERE file_id IN (".join(', ', $title_ids).")");
-		$con->delete("DELETE FROM t_text_list$postfix1 WHERE title_id IN (".join(', ', $title_ids).")");
-	}
-?>
-<script>
-	window.opener.document.location.reload();
-	window.close();
-</script>
-<?
-}
-
-function admin_special_recording($section)
-{
-	global $con;
-
-	$primary = nav_get('primary', 'array');
-	$recording = nav_post('recording', 'integer', 0);
-
-	if ($recording)
-	{
-		$expr = ' = '.($recording == -1 ? 'NULL' : $recording);
-		foreach ($primary as $title_id)
-			$con->update("UPDATE t_title_list SET company $expr WHERE id = $title_id");
-		?>
-		<script>
-			window.opener.document.location.reload();
-			window.close();
-		</script>
-		<?
-		return;
-	}
-
-	$list = $con->query_list("SELECT id, name FROM companies");
-	?>
-	<form method='post'>
-	<table class='form' cellspacing='0' cellpadding='2' width='100%' border='0'>
-	<tr class='caption'><td colspan='3' align='left'>Компания</td></tr>
-	<tr class='edit'><td width='50'>&nbsp;</td><td>
-		<select name='recording'>
-			<option value='-1' selected>РОМС</option>
-			<?
-			foreach ($list as $id => $name)
-			{
-				?><option value='<?=$id?>'><?=$name?></option><?
-			}
-			?>
-		</select>
-		</td><td class='error'></td></tr>
-        <tr class='buttons'><td width='50'>&nbsp;</td><td colspan='2'>
-	  <input type='submit' value='Пометить' style='width: 120px'>
-	  </td></tr>
-	</table>
-	</form>
-	<?
-
-}
-
-?>
