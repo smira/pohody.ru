@@ -210,7 +210,11 @@ class mysql_con {
 
 	function affected_rows () {
 		return mysqli_affected_rows($this->con);
-	}
+  }
+
+  function error() {
+    return mysqli_error($this->con);
+  }
 
 }
 
